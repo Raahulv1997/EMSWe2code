@@ -15,7 +15,7 @@ export default function AppBody() {
         padding: "10px",
         flexWrap: "wrap",
         overflow: "scroll",
-        marginTop: "64px",
+        // marginTop: "64px",
       }}
     >
       <ProductBox qty={1} />

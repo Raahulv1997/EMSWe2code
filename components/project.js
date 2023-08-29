@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { GetTaskApi, GetProjectsApi } from "./Api/api";
+import { GetProjectsApi } from "./Api/api";
+import { Flex } from "@react-native-material/core";
 import ProjectBox from "./projectBox";
-const Task = () => {
+const Project = () => {
   const [projectList, setProjectList] = useState([]);
-  /*Function to get the task list */
+  const [addProjectModal, setAddProjectList] = useState(false);
+  /*Function to get the Project list */
   const GetProjectList = async () => {
     try {
       let projectRes = await GetProjectsApi();
@@ -19,23 +21,40 @@ const Task = () => {
   }, []);
 
   return (
-    <View style={styles.contentBody}>
-      <View style={styles.container}>
-        <View style={styles.textHead}>
-          <Text style={styles.heading}>Task Management</Text>
-          <TouchableOpacity style={styles.addButton}>
-            <Text style={styles.buttonText}>Add New Task</Text>
-          </TouchableOpacity>
+    <Flex style={styles.scrollContainer}>
+      <View style={styles.contentBody}>
+        <View style={styles.container}>
+          <View style={styles.textHead}>
+            <Text style={styles.heading}>Project Management</Text>
+            <TouchableOpacity
+              style={styles.addButton}
+              onPress={() => setAddProjectList(true)}
+            >
+              <Text style={styles.buttonText}>Add Project</Text>
+            </TouchableOpacity>
+          </View>
+          {(projectList || []).map((item, index) => {
+            return <ProjectBox projectData={item} key={index} />;
+          })}
         </View>
-        {(projectList || []).map((item, index) => {
-          return <ProjectBox projectData={item} key={index} />;
-        })}
       </View>
-    </View>
+      {addProjectModal ? addProjectModal : null}
+    </Flex>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+    gap: "10px",
+    height: "calc(100vh - 128px)",
+    padding: "10px",
+    flexWrap: "wrap",
+    overflow: "scroll",
+  },
   contentBody: {
     flex: 1,
     padding: 10,
@@ -65,4 +84,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Task;
+export default Project;

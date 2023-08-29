@@ -1,0 +1,26 @@
+{
+    "sourceFile": "components/addupdateTask.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1693309516725,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1693309545106,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import React from \"react\";\r\n import { View, Text, TextInput, TouchableOpacity, StyleSheet, Picker } from \"react-native\";\r\n \r\n-function TableTaskAddUpdate() {\r\n+function AddUpdateTask() {\r\n   return (\r\n     <View style={styles.row}>\r\n       <View style={styles.cell}>\r\n         <View style={styles.iconContainer}>\r\n"
+                },
+                {
+                    "date": 1693309572686,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -117,5 +117,5 @@\n     fontWeight: \"bold\",\r\n   },\r\n });\r\n \r\n-export default TableTaskAddUpdate;\r\n+export default AddUpdateTask;\r\n"
+                }
+            ],
+            "date": 1693309516725,
+            "name": "Commit-0",
+            "content": "import React from \"react\";\r\nimport { View, Text, TextInput, TouchableOpacity, StyleSheet, Picker } from \"react-native\";\r\n\r\nfunction TableTaskAddUpdate() {\r\n  return (\r\n    <View style={styles.row}>\r\n      <View style={styles.cell}>\r\n        <View style={styles.iconContainer}>\r\n          <Text style={styles.icon}>+</Text>\r\n        </View>\r\n      </View>\r\n      <View style={styles.cell}>\r\n        <View style={styles.inputContainer}>\r\n          <TextInput\r\n            style={styles.input}\r\n            placeholder=\"input-rounded\"\r\n          />\r\n        </View>\r\n      </View>\r\n      <View style={styles.cell}>\r\n        <View style={styles.inputContainer}>\r\n          <TextInput\r\n            style={styles.input}\r\n            placeholder=\"date\"\r\n            type=\"date\"\r\n          />\r\n        </View>\r\n      </View>\r\n      <View style={styles.cell}>\r\n        <View style={styles.pickerContainer}>\r\n          <Picker style={styles.picker}>\r\n            <Picker.Item label=\"Assign\" value=\"\" />\r\n            <Picker.Item label=\"Raj Patidar\" value=\"Raj Patidar\" />\r\n            <Picker.Item label=\"Chetan B\" value=\"Chetan B\" />\r\n            <Picker.Item label=\"Rohit P\" value=\"Rohit P\" />\r\n          </Picker>\r\n        </View>\r\n      </View>\r\n      <View style={styles.cell}>\r\n        <View style={styles.pickerContainer}>\r\n          <Picker style={styles.picker}>\r\n            <Picker.Item label=\"Priority\" value=\"\" />\r\n            <Picker.Item label=\"High\" value=\"High\" />\r\n            <Picker.Item label=\"Medium\" value=\"Medium\" />\r\n            <Picker.Item label=\"Low\" value=\"Low\" />\r\n          </Picker>\r\n        </View>\r\n      </View>\r\n      <View style={styles.cell} colSpan={2}>\r\n        <TouchableOpacity style={styles.addButton}>\r\n          <Text style={styles.addButtonIcon}>+</Text>\r\n          <Text style={styles.addButtonLabel}>Add</Text>\r\n        </TouchableOpacity>\r\n      </View>\r\n    </View>\r\n  );\r\n}\r\n\r\nconst styles = StyleSheet.create({\r\n  row: {\r\n    flexDirection: \"row\",\r\n    alignItems: \"center\",\r\n  },\r\n  cell: {\r\n    padding: 10,\r\n    flex: 1,\r\n    justifyContent: \"center\",\r\n    alignItems: \"center\",\r\n  },\r\n  iconContainer: {\r\n    backgroundColor: \"blue\",\r\n    width: 30,\r\n    height: 30,\r\n    borderRadius: 15,\r\n    justifyContent: \"center\",\r\n    alignItems: \"center\",\r\n  },\r\n  icon: {\r\n    color: \"white\",\r\n    fontWeight: \"bold\",\r\n  },\r\n  inputContainer: {\r\n    borderBottomWidth: 1,\r\n    borderColor: \"gray\",\r\n    width: \"100%\",\r\n    padding: 5,\r\n  },\r\n  input: {\r\n    fontSize: 14,\r\n  },\r\n  pickerContainer: {\r\n    borderWidth: 1,\r\n    borderColor: \"gray\",\r\n    borderRadius: 4,\r\n    width: \"100%\",\r\n    padding: 5,\r\n  },\r\n  picker: {\r\n    fontSize: 14,\r\n  },\r\n  addButton: {\r\n    backgroundColor: \"blue\",\r\n    flexDirection: \"row\",\r\n    alignItems: \"center\",\r\n    justifyContent: \"center\",\r\n    paddingVertical: 5,\r\n    paddingHorizontal: 10,\r\n    borderRadius: 4,\r\n  },\r\n  addButtonIcon: {\r\n    color: \"white\",\r\n    fontWeight: \"bold\",\r\n    marginRight: 5,\r\n  },\r\n  addButtonLabel: {\r\n    color: \"white\",\r\n    fontWeight: \"bold\",\r\n  },\r\n});\r\n\r\nexport default TableTaskAddUpdate;\r\n"
+        }
+    ]
+}

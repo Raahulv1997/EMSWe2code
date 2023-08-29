@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
-
+import AddUpdateTask from "./addupdateTask"; 
 const TaskList = ({ taskData }) => {
   return (
     <View style={styles.cardBody}>
@@ -8,7 +8,6 @@ const TaskList = ({ taskData }) => {
         <View style={styles.tableContainer}>
           <View style={styles.tableHeader}>
             <View style={styles.tableRow}>
-              <View style={styles.tableHeaderCell}></View>
               <View style={styles.tableHeaderCell}>
                 <Text style={styles.tableHeaderText}>Task</Text>
               </View>
@@ -32,9 +31,10 @@ const TaskList = ({ taskData }) => {
               <View style={styles.tableRow}>
                 <View style={styles.tableCell}></View>
                 <View style={styles.tableCell}></View>
-                <View style={styles.tableCell}></View>
                 <View style={styles.tableCell}>
-                  <Text style={{alignContent:"center",color:"black"}}>No data found</Text>
+                  <Text style={{margin:"auto", color: "black" ,paddingBottom:"10px"}}>
+                    No data found
+                  </Text>
                 </View>
                 <View style={styles.tableCell}></View>
                 <View style={styles.tableCell}></View>
@@ -44,50 +44,32 @@ const TaskList = ({ taskData }) => {
               (taskData || []).map((data, index) => (
                 <View style={styles.tableRow} key={index}>
                   <View style={styles.tableCell}>
-                    <View style={styles.formCheck}>
-                      <TouchableOpacity
-                        style={styles.formCheckInput}
-                        title="Mark Task Complete"
-                      >
-                        {/* Add checkbox icon */}
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                  <View style={styles.tableCell}>
-                    <View style={styles.textDark}>
-                      <Text>{data.task_name}</Text>
-                    </View>
+                    <Text style={styles.textDark}>{data.task_name}</Text>
                   </View>
                   <View style={styles.tableCell}>
                     <Text style={styles.dueDate}>{data.due_date}</Text>
                   </View>
                   <View style={styles.tableCell}>
-                    <View style={styles.priorityBadge}>
-                      <Text style={styles.priorityText}>{data.priority}</Text>
-                    </View>
+                    <Text style={styles.priorityBadge}>{data.priority}</Text>
                   </View>
                   <View style={styles.tableCell}>
-                    <View style={styles.assignContainer}>
-                      <TouchableOpacity
+                    {/* <TouchableOpacity
                         style={styles.assignDropdownToggle}
                         onPress={() => {
                           // Handle assign dropdown toggle
                         }}
-                      >
-                        <Image source={""} style={styles.assignImage} />
-                        <View style={styles.assignBadge}>
-                          <Text style={styles.assignBadgeText}>
-                            {data.assign}
-                          </Text>
-                        </View>
-                      </TouchableOpacity>
-                      {/* Add ListDropdown component */}
-                    </View>
+                      > */}
+                    {/* <Image source={""} style={styles.assignImage} /> */}
+                    {/* <View style={styles.assignBadge}> */}
+                    <Text style={styles.assignBadge}>
+                      {data.assign ? data.assign : "NA"}
+                    </Text>
+                    {/* </View> */}
+                    {/* </TouchableOpacity> */}
+                    {/* Add ListDropdown component */}
                   </View>
                   <View style={styles.tableCell}>
-                    <View style={styles.statusBadge}>
-                      <Text style={styles.statusText}>{data.status}</Text>
-                    </View>
+                    <Text style={styles.statusBadge}>{data.status}</Text>
                   </View>
                   <View style={styles.tableCell}>
                     <TouchableOpacity style={styles.arrowLink}>
@@ -97,8 +79,8 @@ const TaskList = ({ taskData }) => {
                 </View>
               ))
             )}
-            {/* Add TableTaskAddUpdate component */}
-          </View>
+ <AddUpdateTask/>     
+    </View>
         </View>
       </View>
     </View>
@@ -120,8 +102,8 @@ const styles = StyleSheet.create({
     overflowX: "auto",
   },
   tableHeader: {
-    borderBottomWidth: 2,
-    borderColor: "rgb(0, 0, 0, 0.125)",
+    borderBottomWidth: 1,
+    borderColor: "gray",
   },
   tableRow: {
     flexDirection: "row",
@@ -134,24 +116,31 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     margin: "10px",
   },
-  tableBody: {},
   tableCell: {
     padding: 0.75,
+    // paddingHorizontal:12
   },
-  formCheck: {},
-  formCheckInput: {},
+  tableColText: {
+    margin: "10px",
+  },
   textDark: {
     color: "#343a40",
+    margin: "10px",
   },
   dueDate: {
-    color: "#dc3545",
-    fontSize: 10,
+    fontSize: 9,
+    margin: "10px",
   },
   priorityBadge: {
-    borderColor: "#007bff",
-  },
-  priorityText: {
-    color: "#007bff",
+    fontSize: 10,
+    margin: "10px",
+    color: "#fc410c",
+    fontWeight: "bold",
+    paddingVertical: 2,
+    paddingHorizontal: 2,
+    borderRadius: 40,
+    borderWidth: 0.25,
+    borderColor: "#ecbaa9",
   },
   assignContainer: {
     position: "relative",
@@ -168,9 +157,8 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   assignBadge: {
-    position: "absolute",
-    top: -8,
-    right: 0,
+    margin: "10px",
+    marginLeft: "25px",
     backgroundColor: "#6c757d",
     padding: 4,
     borderRadius: 4,
@@ -178,9 +166,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
   },
-  assignBadgeText: {},
   statusBadge: {
-    borderColor: "#dc3545",
+    backgroundColor: "#dc3545",
+    borderRadius: "40px",
+    paddingVertical: 2,
+    paddingHorizontal: 4,
+    color: "white",
+    margin:"10px"
   },
   statusText: {
     color: "#dc3545",

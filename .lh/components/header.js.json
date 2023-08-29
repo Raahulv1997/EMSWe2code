@@ -1,0 +1,22 @@
+{
+    "sourceFile": "components/header.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1693310370688,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1693310375856,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n   const [loggedIn, setLoggedIn] = useState(false);\n   const styles = StyleSheet.create({\n     container: {\n       width: \"100%\",\n-      // position: \"absolute\",\n+      position: \"absolute\",\n       // top: 0,\n     },\n   });\n   return (\n"
+                }
+            ],
+            "date": 1693310370688,
+            "name": "Commit-0",
+            "content": "import React, { useState } from \"react\";\nimport {\n  AppBar,\n  IconButton,\n  Button,\n  Avatar,\n} from \"@react-native-material/core\";\nimport { StyleSheet } from \"react-native\";\nimport Icon from \"@expo/vector-icons/MaterialCommunityIcons\";\n\nconst AppHeader = () => {\n  const [loggedIn, setLoggedIn] = useState(false);\n  const styles = StyleSheet.create({\n    container: {\n      width: \"100%\",\n      // position: \"absolute\",\n      // top: 0,\n    },\n  });\n  return (\n    <AppBar\n      style={styles.container}\n      title=\"App Header\"\n      leading={(props) => (\n        <IconButton\n          icon={(props) => <Icon name=\"menu\" {...props} />}\n          {...props}\n        />\n      )}\n      trailing={(props) =>\n        loggedIn ? (\n          <IconButton\n            icon={<Avatar label=\"Yaman KATBY\" size={28} />}\n            onPress={() => setLoggedIn(!loggedIn)}\n            {...props}\n          />\n        ) : (\n          <Button\n            variant=\"text\"\n            title=\"Login\"\n            compact\n            style={{ marginEnd: 4 }}\n            onPress={() => setLoggedIn(!loggedIn)}\n            {...props}\n          />\n        )\n      }\n    />\n  );\n};\n\nexport default AppHeader;\n"
+        }
+    ]
+}

@@ -1,8 +1,16 @@
 import { AppBar } from "@react-native-material/core";
-import { StyleSheet } from "react-native";
-
+import { StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation } from '@react-navigation/native';
+import { Octicons  } from "@expo/vector-icons";
 export default function AppFooter() {
-  return <AppBar style={styles.container} title="App Footer" />;
+  let navigate = useNavigation()
+  return (
+    <AppBar style={styles.container} title="App Footer">
+      <TouchableOpacity onPress={()=>navigate.navigate("project")}>
+      <Octicons name="tasklist" size={24} color="white" />
+      </TouchableOpacity>{" "}
+    </AppBar>
+  );
 }
 
 const styles = StyleSheet.create({

@@ -20,7 +20,7 @@ export default function AppBody() {
     >
       <ProductBox qty={1} />
       <ProductBox />
-      <ProductBox />
+      <ProductBox qty={5}/>
       <ProductBox qty={2} />
       <ProductBox />
       <ProductBox />

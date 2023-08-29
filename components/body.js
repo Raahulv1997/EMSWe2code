@@ -1,6 +1,7 @@
 import { Flex, Box, Text } from "@react-native-material/core";
 import { StyleSheet, View } from "react-native";
 import ProductBox from "./product_box";
+import TaskList from "./task_list";
 
 export default function AppBody() {
   return (
@@ -18,6 +19,7 @@ export default function AppBody() {
         // marginTop: "64px",
       }}
     >
+      <TaskList />
       <ProductBox qty={1} />
       <ProductBox />
       <ProductBox qty={5}/>

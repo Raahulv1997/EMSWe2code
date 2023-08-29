@@ -22,7 +22,7 @@ export default function AppBody() {
       <TaskList />
       <ProductBox qty={1} />
       <ProductBox />
-      <ProductBox />
+      <ProductBox qty={5}/>
       <ProductBox qty={2} />
       <ProductBox />
       <ProductBox />

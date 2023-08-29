@@ -1,0 +1,82 @@
+{
+    "sourceFile": "components/footer.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 16,
+            "patches": [
+                {
+                    "date": 1693289423349,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1693289434199,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,18 @@\n+import { AppBar } from \"@react-native-material/core\";\n+import { StyleSheet } from \"react-native\";\n+\n+export default function AppFooter() {\n+  return (\n+    <AppBar style={styles.container}>\n+    <Button title=\"Task\" onPress={()=> navigation.navigate('TaskScreen')} />\n+  </AppBar>\n+  )\n+}\n+\n+const styles = StyleSheet.create({\n+  container: {\n+    width: \"100%\",\n+    position: \"absolute\",\n+    bottom: 0,\n+  },\n+});\n"
+                },
+                {
+                    "date": 1693289450985,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-import { AppBar } from \"@react-native-material/core\";\n+import { AppBar ,Button } from \"@react-native-material/core\";\n import { StyleSheet } from \"react-native\";\n \n export default function AppFooter() {\n   return (\n@@ -15,22 +15,4 @@\n     position: \"absolute\",\n     bottom: 0,\n   },\n });\n-import { AppBar } from \"@react-native-material/core\";\n-import { StyleSheet } from \"react-native\";\n-\n-export default function AppFooter() {\n-  return (\n-    <AppBar style={styles.container}>\n-    <Button title=\"Navigate to Task Screen\" onPress={()=> navigation.navigate('TaskScreen')} />\n-  </AppBar>\n-  )\n-}\n-\n-const styles = StyleSheet.create({\n-  container: {\n-    width: \"100%\",\n-    position: \"absolute\",\n-    bottom: 0,\n-  },\n-});\n"
+                },
+                {
+                    "date": 1693289469260,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n \n export default function AppFooter() {\n   return (\n     <AppBar style={styles.container}>\n-    <Button title=\"Task\" onPress={()=> navigation.navigate('TaskScreen')} />\n+    <Button title=\"task\" onPress={()=> navigation.navigate('TaskScreen')} />\n   </AppBar>\n   )\n }\n \n"
+                },
+                {
+                    "date": 1693289477232,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n \n export default function AppFooter() {\n   return (\n     <AppBar style={styles.container}>\n-    <Button title=\"task\" onPress={()=> navigation.navigate('TaskScreen')} />\n+    <Button title=\"Task\" onPress={()=> navigation.navigate('task')} />\n   </AppBar>\n   )\n }\n \n"
+                },
+                {
+                    "date": 1693289551040,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n import { StyleSheet } from \"react-native\";\n \n export default function AppFooter() {\n   return (\n-    <AppBar style={styles.container}>\n+    <AppBar style={styles.container} title=\"App Footer\">\n     <Button title=\"Task\" onPress={()=> navigation.navigate('task')} />\n   </AppBar>\n   )\n }\n"
+                },
+                {
+                    "date": 1693289697056,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,10 +3,11 @@\n \n export default function AppFooter() {\n   return (\n     <AppBar style={styles.container} title=\"App Footer\">\n-    <Button title=\"Task\" onPress={()=> navigation.navigate('task')} />\n-  </AppBar>\n+  <TouchableOpacity onPress={navigation.navigate('task')}>\n+        <Ionicons name=\"ios-task\" size={30} color=\"black\" /> {/* Replace 'ios-task' with the actual icon name */}\n+      </TouchableOpacity>  </AppBar>\n   )\n }\n \n const styles = StyleSheet.create({\n"
+                },
+                {
+                    "date": 1693289724685,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n \n export default function AppFooter() {\n   return (\n     <AppBar style={styles.container} title=\"App Footer\">\n-  <TouchableOpacity onPress={navigation.navigate('task')}>\n+  <TouchableOpacity onPress={navigation.navigate('task')  }>\n         <Ionicons name=\"ios-task\" size={30} color=\"black\" /> {/* Replace 'ios-task' with the actual icon name */}\n       </TouchableOpacity>  </AppBar>\n   )\n }\n"
+                },
+                {
+                    "date": 1693289731321,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,16 @@\n-import { AppBar ,Button } from \"@react-native-material/core\";\n+import { AppBar } from \"@react-native-material/core\";\n import { StyleSheet } from \"react-native\";\n \n export default function AppFooter() {\n   return (\n     <AppBar style={styles.container} title=\"App Footer\">\n-  <TouchableOpacity onPress={navigation.navigate('task')  }>\n-        <Ionicons name=\"ios-task\" size={30} color=\"black\" /> {/* Replace 'ios-task' with the actual icon name */}\n-      </TouchableOpacity>  </AppBar>\n-  )\n+      <TouchableOpacity onPress={navigation.navigate(\"task\")}>\n+        <Ionicons name=\"ios-task\" size={30} color=\"black\" />{\" \"}\n+        {/* Replace 'ios-task' with the actual icon name */}\n+      </TouchableOpacity>{\" \"}\n+    </AppBar>\n+  );\n }\n \n const styles = StyleSheet.create({\n   container: {\n"
+                },
+                {
+                    "date": 1693289777638,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,11 @@\n import { AppBar } from \"@react-native-material/core\";\n-import { StyleSheet } from \"react-native\";\n+import { StyleSheet, TouchableOpacity } from \"react-native\";\n+import { useNavigation } from '@react-navigation/native';\n+import { Ionicons } from 'react-native-vector-icons';\n \n export default function AppFooter() {\n+  let navigate = useNavigation()\n   return (\n     <AppBar style={styles.container} title=\"App Footer\">\n       <TouchableOpacity onPress={navigation.navigate(\"task\")}>\n         <Ionicons name=\"ios-task\" size={30} color=\"black\" />{\" \"}\n"
+                },
+                {
+                    "date": 1693289799906,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n export default function AppFooter() {\n   let navigate = useNavigation()\n   return (\n     <AppBar style={styles.container} title=\"App Footer\">\n-      <TouchableOpacity onPress={navigation.navigate(\"task\")}>\n+      <TouchableOpacity onPress={navigate.navigate(\"task\")}>\n         <Ionicons name=\"ios-task\" size={30} color=\"black\" />{\" \"}\n         {/* Replace 'ios-task' with the actual icon name */}\n       </TouchableOpacity>{\" \"}\n     </AppBar>\n"
+                },
+                {
+                    "date": 1693289895075,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,24 @@\n+import { AppBar } from \"@react-native-material/core\";\n+import { StyleSheet, TouchableOpacity } from \"react-native\";\n+import { useNavigation } from '@react-navigation/native';\n+import { Ionicons } from 'react-native-vector-icons';\n+\n+export default function AppFooter() {\n+  let navigate = useNavigation()\n+  return (\n+    <AppBar style={styles.container} title=\"App Footer\">\n+      <TouchableOpacity onPress={navigate.navigate(\"task\")}>\n+        <Ionicons name=\"tasklist\" size={30} color=\"white\" />{\" \"}\n+        {/* Replace 'ios-task' with the actual icon name */}\n+      </TouchableOpacity>{\" \"}\n+    </AppBar>\n+  );\n+}\n+\n+const styles = StyleSheet.create({\n+  container: {\n+    width: \"100%\",\n+    position: \"absolute\",\n+    bottom: 0,\n+  },\n+});\n"
+                },
+                {
+                    "date": 1693289912472,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,24 @@\n+import { AppBar } from \"@react-native-material/core\";\n+import { StyleSheet, TouchableOpacity } from \"react-native\";\n+import { useNavigation } from '@react-navigation/native';\n+import { Ionicons } from 'react-native-vector-icons';\n+\n+export default function AppFooter() {\n+  let navigate = useNavigation()\n+  return (\n+    <AppBar style={styles.container} title=\"App Footer\">\n+      <TouchableOpacity onPress={navigate.navigate(\"task\")}>\n+        <Ionicons name=\"task-list\" size={30} color=\"white\" />{\" \"}\n+        {/* Replace 'ios-task' with the actual icon name */}\n+      </TouchableOpacity>{\" \"}\n+    </AppBar>\n+  );\n+}\n+\n+const styles = StyleSheet.create({\n+  container: {\n+    width: \"100%\",\n+    position: \"absolute\",\n+    bottom: 0,\n+  },\n+});\n"
+                },
+                {
+                    "date": 1693289922767,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n   let navigate = useNavigation()\n   return (\n     <AppBar style={styles.container} title=\"App Footer\">\n       <TouchableOpacity onPress={navigate.navigate(\"task\")}>\n-        <Ionicons name=\"task-list\" size={30} color=\"white\" />{\" \"}\n+        <Ionicons name=\"ios-taskt\" size={30} color=\"white\" />{\" \"}\n         {/* Replace 'ios-task' with the actual icon name */}\n       </TouchableOpacity>{\" \"}\n     </AppBar>\n   );\n@@ -21,52 +21,4 @@\n     position: \"absolute\",\n     bottom: 0,\n   },\n });\n-import { AppBar } from \"@react-native-material/core\";\n-import { StyleSheet, TouchableOpacity } from \"react-native\";\n-import { useNavigation } from '@react-navigation/native';\n-import { Ionicons } from 'react-native-vector-icons';\n-\n-export default function AppFooter() {\n-  let navigate = useNavigation()\n-  return (\n-    <AppBar style={styles.container} title=\"App Footer\">\n-      <TouchableOpacity onPress={navigate.navigate(\"task\")}>\n-        <Ionicons name=\"tasklist\" size={30} color=\"white\" />{\" \"}\n-        {/* Replace 'ios-task' with the actual icon name */}\n-      </TouchableOpacity>{\" \"}\n-    </AppBar>\n-  );\n-}\n-\n-const styles = StyleSheet.create({\n-  container: {\n-    width: \"100%\",\n-    position: \"absolute\",\n-    bottom: 0,\n-  },\n-});\n-import { AppBar } from \"@react-native-material/core\";\n-import { StyleSheet, TouchableOpacity } from \"react-native\";\n-import { useNavigation } from '@react-navigation/native';\n-import { Ionicons } from 'react-native-vector-icons';\n-\n-export default function AppFooter() {\n-  let navigate = useNavigation()\n-  return (\n-    <AppBar style={styles.container} title=\"App Footer\">\n-      <TouchableOpacity onPress={navigate.navigate(\"task\")}>\n-        <Ionicons name=\"ios-task\" size={30} color=\"black\" />{\" \"}\n-        {/* Replace 'ios-task' with the actual icon name */}\n-      </TouchableOpacity>{\" \"}\n-    </AppBar>\n-  );\n-}\n-\n-const styles = StyleSheet.create({\n-  container: {\n-    width: \"100%\",\n-    position: \"absolute\",\n-    bottom: 0,\n-  },\n-});\n"
+                },
+                {
+                    "date": 1693290377099,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,10 +6,10 @@\n export default function AppFooter() {\n   let navigate = useNavigation()\n   return (\n     <AppBar style={styles.container} title=\"App Footer\">\n-      <TouchableOpacity onPress={navigate.navigate(\"task\")}>\n-        <Ionicons name=\"ios-taskt\" size={30} color=\"white\" />{\" \"}\n+      <TouchableOpacity onPress={()=>navigate.navigate(\"task\")}>\n+        <Ionicons name=\"ios-task\" size={30} color=\"white\" />{\" \"}\n         {/* Replace 'ios-task' with the actual icon name */}\n       </TouchableOpacity>{\" \"}\n     </AppBar>\n   );\n"
+                },
+                {
+                    "date": 1693290673835,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,16 +1,15 @@\n import { AppBar } from \"@react-native-material/core\";\n import { StyleSheet, TouchableOpacity } from \"react-native\";\n import { useNavigation } from '@react-navigation/native';\n import { Ionicons } from 'react-native-vector-icons';\n-\n+import { Octicons  } from \"@expo/vector-icons\";\n export default function AppFooter() {\n   let navigate = useNavigation()\n   return (\n     <AppBar style={styles.container} title=\"App Footer\">\n       <TouchableOpacity onPress={()=>navigate.navigate(\"task\")}>\n-        <Ionicons name=\"ios-task\" size={30} color=\"white\" />{\" \"}\n-        {/* Replace 'ios-task' with the actual icon name */}\n+      <Octicons name=\"tasklist\" size={24} color=\"white\" />\n       </TouchableOpacity>{\" \"}\n     </AppBar>\n   );\n }\n"
+                },
+                {
+                    "date": 1693303263614,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,13 @@\n import { AppBar } from \"@react-native-material/core\";\n import { StyleSheet, TouchableOpacity } from \"react-native\";\n import { useNavigation } from '@react-navigation/native';\n-import { Ionicons } from 'react-native-vector-icons';\n import { Octicons  } from \"@expo/vector-icons\";\n export default function AppFooter() {\n   let navigate = useNavigation()\n   return (\n     <AppBar style={styles.container} title=\"App Footer\">\n-      <TouchableOpacity onPress={()=>navigate.navigate(\"task\")}>\n+      <TouchableOpacity onPress={()=>navigate.navigate(\"project\")}>\n       <Octicons name=\"tasklist\" size={24} color=\"white\" />\n       </TouchableOpacity>{\" \"}\n     </AppBar>\n   );\n"
+                }
+            ],
+            "date": 1693289423349,
+            "name": "Commit-0",
+            "content": "import { AppBar } from \"@react-native-material/core\";\nimport { StyleSheet } from \"react-native\";\n\nexport default function AppFooter() {\n  return (\n    <AppBar style={styles.container}>\n    <Button title=\"Navigate to Task Screen\" onPress={()=> navigation.navigate('TaskScreen')} />\n  </AppBar>\n  )\n}\n\nconst styles = StyleSheet.create({\n  container: {\n    width: \"100%\",\n    position: \"absolute\",\n    bottom: 0,\n  },\n});\n"
+        }
+    ]
+}

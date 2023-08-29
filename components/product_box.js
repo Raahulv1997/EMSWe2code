@@ -10,7 +10,7 @@ export default function ProductBox(props) {
       style={{
         backgroundColor: "#FFF",
         flexDirection: "column",
-        minWidth: "calc(50% - 15px)",
+        minWidth: "50%",
         shadowColor: "#000000",
         shadowOffset: {
           width: 0,
@@ -26,10 +26,10 @@ export default function ProductBox(props) {
       <View style={{ width: "100%" }}>
         <Image
           source={require("../assets/1.jpg")}
-          style={{ width: "100%", height: "100px" }}
+          style={{ width: "100%", height: 100 }}
         />
       </View>
-      <View style={{ padding: "10px" }}>
+      <View style={{ padding: 10 }}>
         <View
           style={{
             display: "flex",
@@ -46,7 +46,7 @@ export default function ProductBox(props) {
             <Text
               style={{
                 color: "#333",
-                fontSize: "10px",
+                fontSize: 10,
               }}
             >
               CATEGORY
@@ -57,12 +57,20 @@ export default function ProductBox(props) {
               width: "fit-content",
               display: "flex",
               flexDirection: "row",
-              gap: "3px",
+              gap: 3,
               color: "#fff",
             }}
             color="primary"
           >
-            4 <AntDesign name="star" color="yellow" />
+            <Text
+              style={{
+                color: "#fff",
+                fontSize: 10,
+              }}
+            >
+              4
+            </Text>
+            <AntDesign name="star" color="yellow" />
           </Badge>
         </View>
         <Text>Product Name</Text>
@@ -71,20 +79,20 @@ export default function ProductBox(props) {
             display: "flex",
             flexDirection: "row",
             alignItems: "flex-end",
-            gap: "10px",
+            gap: 10,
           }}
         >
           <Text
-            color="red"
-            style={{ textDecorationLine: "line-through", fontSize: "13px" }}
+            style={{ textDecorationLine: "line-through", fontSize: 13 }}
           >
             ₹500/-
           </Text>
-          <Text color="green" style={{ fontWeight: "600", fontSize: "16px" }}>
+          <Text style={{ fontWeight: "600", fontSize: 16 }}>
             ₹400/-
           </Text>
         </View>
       </View>
+      {/* Assuming AddToCart is a valid component */}
       <AddToCart qty={props.qty} />
     </Flex>
   );

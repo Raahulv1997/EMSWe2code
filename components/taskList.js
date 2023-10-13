@@ -1,7 +1,8 @@
 import React from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
-import AddUpdateTask from "./addupdateTask"; 
+import AddUpdateTask from "./addupdateTask";
 const TaskList = ({ taskData }) => {
+  console.log("Task data--" + JSON.stringify(taskData));
   return (
     <View style={styles.cardBody}>
       <View style={styles.tableResponsive}>
@@ -11,7 +12,7 @@ const TaskList = ({ taskData }) => {
               <View style={styles.tableHeaderCell}>
                 <Text style={styles.tableHeaderText}>Task</Text>
               </View>
-              <View style={styles.tableHeaderCell}>
+              <View style={styles.tableHeaderTextForTask}>
                 <Text style={styles.tableHeaderText}>Due</Text>
               </View>
               <View style={styles.tableHeaderCell}>
@@ -32,7 +33,13 @@ const TaskList = ({ taskData }) => {
                 <View style={styles.tableCell}></View>
                 <View style={styles.tableCell}></View>
                 <View style={styles.tableCell}>
-                  <Text style={{margin:"auto", color: "black" ,paddingBottom:"10px"}}>
+                  <Text
+                    style={{
+                      margin: "auto",
+                      color: "black",
+                      paddingBottom: "10px",
+                    }}
+                  >
                     No data found
                   </Text>
                 </View>
@@ -41,46 +48,54 @@ const TaskList = ({ taskData }) => {
                 <View style={styles.tableCell}></View>
               </View>
             ) : (
-              (taskData || []).map((data, index) => (
-                <View style={styles.tableRow} key={index}>
-                  <View style={styles.tableCell}>
-                    <Text style={styles.textDark}>{data.task_name}</Text>
-                  </View>
-                  <View style={styles.tableCell}>
-                    <Text style={styles.dueDate}>{data.due_date}</Text>
-                  </View>
-                  <View style={styles.tableCell}>
-                    <Text style={styles.priorityBadge}>{data.priority}</Text>
-                  </View>
-                  <View style={styles.tableCell}>
-                    {/* <TouchableOpacity
+              (taskData || []).map((data, index) => {
+                console.log(data.task_name);
+                return (
+                  <>
+                    {" "}
+                    <View style={styles.tableRow} key={index}>
+                      <View style={styles.tableCell}>
+                        <Text style={styles.textDark}>{data.task_name}</Text>
+                      </View>
+                      <View style={styles.tableCell}>
+                        <Text style={styles.dueDate}>{data.due_date}</Text>
+                      </View>
+                      <View style={styles.tableCell}>
+                        <Text style={styles.priorityBadge}>
+                          {data.priority}
+                        </Text>
+                      </View>
+                      <View style={styles.tableCell}>
+                        {/* <TouchableOpacity
                         style={styles.assignDropdownToggle}
                         onPress={() => {
                           // Handle assign dropdown toggle
                         }}
                       > */}
-                    {/* <Image source={""} style={styles.assignImage} /> */}
-                    {/* <View style={styles.assignBadge}> */}
-                    <Text style={styles.assignBadge}>
-                      {data.assign ? data.assign : "NA"}
-                    </Text>
-                    {/* </View> */}
-                    {/* </TouchableOpacity> */}
-                    {/* Add ListDropdown component */}
-                  </View>
-                  <View style={styles.tableCell}>
-                    <Text style={styles.statusBadge}>{data.status}</Text>
-                  </View>
-                  <View style={styles.tableCell}>
-                    <TouchableOpacity style={styles.arrowLink}>
-                      {/* Add chevron-right icon */}
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              ))
+                        {/* <Image source={""} style={styles.assignImage} /> */}
+                        {/* <View style={styles.assignBadge}> */}
+                        <Text style={styles.assignBadge}>
+                          {data.assign ? data.assign.name : "NA"}
+                        </Text>
+                        {/* </View> */}
+                        {/* </TouchableOpacity> */}
+                        {/* Add ListDropdown component */}
+                      </View>
+                      <View style={styles.tableCell}>
+                        <Text style={styles.statusBadge}>{data.status}</Text>
+                      </View>
+                      <View style={styles.tableCell}>
+                        <TouchableOpacity style={styles.arrowLink}>
+                          {/* Add chevron-right icon */}
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  </>
+                );
+              })
             )}
- <AddUpdateTask/>     
-    </View>
+            <AddUpdateTask />
+          </View>
         </View>
       </View>
     </View>
@@ -108,16 +123,24 @@ const styles = StyleSheet.create({
   tableRow: {
     flexDirection: "row",
     alignItems: "center",
+    borderColor: "2px solid black",
   },
   tableHeaderCell: {
-    padding: 0.75,
+    padding: 7,
+    borderColor: "2px solid black",
   },
   tableHeaderText: {
     fontWeight: "bold",
-    margin: "10px",
+    margin: "20px",
+  },
+
+  tableHeaderTextForTask: {
+    padding: 2,
+    marginLeft: "90px",
   },
   tableCell: {
-    padding: 0.75,
+    padding: 6,
+    marginLeft: "10px",
     // paddingHorizontal:12
   },
   tableColText: {
@@ -172,7 +195,7 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     paddingHorizontal: 4,
     color: "white",
-    margin:"10px"
+    margin: "10px",
   },
   statusText: {
     color: "#dc3545",

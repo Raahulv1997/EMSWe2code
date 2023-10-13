@@ -1,14 +1,17 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import TaskList from "./taskList";
 import { GetTaskApi } from "./Api/api";
 export default function ProjectBox({ projectData }) {
+  console.log("product box--" + JSON.stringify(projectData));
+
   const [taskList, setTaskList] = useState([]);
   const [taskId, setTaskId] = useState();
   /*Function to get Task list */
   const GetTaskList = async () => {
     try {
-      let response = await GetTaskApi(taskId ?taskId :projectData.id);
+      let response = await GetTaskApi(taskId ? taskId : projectData.id);
+      console.log("Task list--" + JSON.stringify(response));
       setTaskList(response.tasks);
     } catch (err) {
       console.log(err);

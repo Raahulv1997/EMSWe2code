@@ -1,5 +1,5 @@
-import { Flex, Box, Text } from "@react-native-material/core";
-import { StyleSheet, View } from "react-native";
+import { Flex } from "@react-native-material/core";
+
 import ProductBox from "./product_box";
 import TaskList from "./task_list";
 
@@ -22,7 +22,7 @@ export default function AppBody() {
       <TaskList />
       <ProductBox qty={1} />
       <ProductBox />
-      <ProductBox qty={5}/>
+      <ProductBox qty={5} />
       <ProductBox qty={2} />
       <ProductBox />
       <ProductBox />

@@ -1,11 +1,11 @@
 import axios from "axios";
 const API_URL = "https://apnaorganicstore.in/attendance/public/api/";
 let Token =
-  "71|xQdefyD21IVd0sr8L9B3ZmXPMuE0WEmTDYc0Wkdh"; /*localStorage.getItem("token");*/
-
+  "lFXFKfknOoBxDBw0lx3dGDpDaqdE7gTp6PAMzX1b"; /*localStorage.getItem("token");*/
+localStorage.setItem("token", Token);
 /*Api to get projects */
 export const GetProjectsApi = async () => {
-  const response = await axios.post(`${API_URL}project/getProjects`, "",{
+  const response = await axios.post(`${API_URL}project/getProjects`, "", {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${Token}`,
@@ -28,17 +28,17 @@ export const AddProjectApi = async (data) => {
 export const GetTaskApi = async (id) => {
   console.log(id);
   const response = await axios.post(
-      `${API_URL}task/getTasks`,
-      
-      {
-          project_id: id,
-        },
-        {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${Token}`,
-            },
-        },
+    `${API_URL}task/getTasks`,
+
+    {
+      project_id: id,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Token}`,
+      },
+    }
   );
   return response.data;
 };
@@ -77,5 +77,23 @@ export const DeleteTaskApi = async (data) => {
       },
     }
   );
+  return response.data;
+};
+
+export const GetUserListApi = async () => {
+  const response = await axios.get(`${API_URL}user`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${Token}`,
+    },
+  });
+  return response.data;
+};
+
+export const userLogin = async (phone, password) => {
+  const response = await axios.post(`${API_URL}auth/login`, {
+    phone: phone,
+    password: password,
+  });
   return response.data;
 };

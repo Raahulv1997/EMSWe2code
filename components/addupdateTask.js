@@ -1,7 +1,33 @@
-import React from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Picker } from "react-native";
-
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Picker,
+} from "react-native";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 function AddUpdateTask() {
+  const initialvalues = {
+    taskName: "",
+    description: "",
+    dueDate: new Date(),
+    assign: "",
+    priority: "",
+    status: "",
+  };
+
+  const [data, setData] = useState(initialvalues);
+
+  const handleChange = (inputName, inputValue) => {
+    setData({ ...data, [inputName]: inputValue });
+  };
+
+  const handleSubmit = () => {
+    console.log("datea-----" + JSON.stringify(data));
+  };
   return (
     <View style={styles.row}>
       <View style={styles.cell}>
@@ -13,22 +39,31 @@ function AddUpdateTask() {
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
-            placeholder="input-rounded"
+            value={data.taskName}
+            name="taskName"
+            id="taskName"
+            onChangeText={(text) => handleChange("taskName", text)}
+            placeholder="Enter any task"
           />
         </View>
       </View>
       <View style={styles.cell}>
         <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="date"
-            type="date"
+          <DatePicker
+            selected={data.dueDate}
+            onChangeText={(date) => handleChange("dueDate", date)}
           />
         </View>
       </View>
       <View style={styles.cell}>
         <View style={styles.pickerContainer}>
-          <Picker style={styles.picker}>
+          <Picker
+            style={styles.picker}
+            selectedValue={data.assign}
+            name="assign"
+            id="assign"
+            onValueChange={(value) => handleChange("assign", value)}
+          >
             <Picker.Item label="Assign" value="" />
             <Picker.Item label="Raj Patidar" value="Raj Patidar" />
             <Picker.Item label="Chetan B" value="Chetan B" />
@@ -36,9 +71,16 @@ function AddUpdateTask() {
           </Picker>
         </View>
       </View>
+
       <View style={styles.cell}>
         <View style={styles.pickerContainer}>
-          <Picker style={styles.picker}>
+          <Picker
+            style={styles.picker}
+            selectedValue={data.priority}
+            name="priority"
+            id="priority"
+            onValueChange={(value) => handleChange("priority", value)}
+          >
             <Picker.Item label="Priority" value="" />
             <Picker.Item label="High" value="High" />
             <Picker.Item label="Medium" value="Medium" />
@@ -46,8 +88,25 @@ function AddUpdateTask() {
           </Picker>
         </View>
       </View>
+
+      <View style={styles.cell}>
+        <View style={styles.pickerContainer}>
+          <Picker
+            style={styles.picker}
+            selectedValue={data.status}
+            name="status"
+            id="status"
+            onValueChange={(value) => handleChange("status", value)}
+          >
+            <Picker.Item label="Status" value="" />
+            <Picker.Item label="Complete" value="complete" />
+            <Picker.Item label="Working" value="working" />
+            <Picker.Item label="Cancelled" value="cancelled" />
+          </Picker>
+        </View>
+      </View>
       <View style={styles.cell} colSpan={2}>
-        <TouchableOpacity style={styles.addButton}>
+        <TouchableOpacity style={styles.addButton} onPress={handleSubmit}>
           <Text style={styles.addButtonIcon}>+</Text>
           <Text style={styles.addButtonLabel}>Add</Text>
         </TouchableOpacity>

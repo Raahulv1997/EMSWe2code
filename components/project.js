@@ -10,7 +10,7 @@ const Project = () => {
   const GetProjectList = async () => {
     try {
       let projectRes = await GetProjectsApi();
-      console.log("data--" + JSON.stringify(projectRes.projects));
+      // console.log("data--" + JSON.stringify(projectRes.projects));
       setProjectList(projectRes.projects);
     } catch (err) {
       console.log(err);
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     justifyContent: "space-between",
     gap: "10px",
-    height: "calc(100vh - 128px)",
+    height: "calc(100vh - 200px)",
     padding: "10px",
     flexWrap: "wrap",
     overflow: "scroll",

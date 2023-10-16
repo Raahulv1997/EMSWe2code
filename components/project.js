@@ -3,9 +3,10 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { GetProjectsApi } from "./Api/api";
 import { Flex } from "@react-native-material/core";
 import ProjectBox from "./projectBox";
+import { useNavigation } from "@react-navigation/native";
 const Project = () => {
   const [projectList, setProjectList] = useState([]);
-  const [addProjectModal, setAddProjectList] = useState(false);
+  let navigate = useNavigation();
   /*Function to get the Project list */
   const GetProjectList = async () => {
     try {
@@ -29,7 +30,7 @@ const Project = () => {
             <Text style={styles.heading}>Project Management</Text>
             <TouchableOpacity
               style={styles.addButton}
-              onPress={() => setAddProjectList(true)}
+              onPress={() => navigate.navigate("addproject")}
             >
               <Text style={styles.buttonText}>Add Project</Text>
             </TouchableOpacity>
@@ -39,7 +40,6 @@ const Project = () => {
           })}
         </View>
       </View>
-      {addProjectModal ? addProjectModal : null}
     </Flex>
   );
 };

@@ -2,25 +2,24 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import TaskList from "./taskList";
 import { GetTaskApi } from "./Api/api";
-export default function ProjectBox({ projectData }) {
-  console.log("product box--" + JSON.stringify(projectData));
 
+export default function ProjectBox({ projectData }) {
   const [taskList, setTaskList] = useState([]);
   const [taskId, setTaskId] = useState();
-  /*Function to get Task list */
+
   const GetTaskList = async () => {
     try {
       let response = await GetTaskApi(taskId ? taskId : projectData.id);
-      console.log("Task list--" + JSON.stringify(response));
       setTaskList(response.tasks);
     } catch (err) {
       console.log(err);
     }
   };
-  /*Render function */
+
   useEffect(() => {
     GetTaskList();
   }, [taskId]);
+
   return (
     <View>
       <View>
@@ -46,12 +45,14 @@ export default function ProjectBox({ projectData }) {
               </View>
             </TouchableOpacity>
             <View style={styles.accordionBody}>
-              <TaskList taskData={taskList} />
+              <TaskList taskData={taskList} id={projectData.id} />
             </View>
+          </View>
+          <View style={styles.accordionBody}>
+            <TaskList taskData={taskList} id={projectData.id} />
           </View>
         </View>
       </View>
-      <View style={styles.col}></View>
     </View>
   );
 }
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(0, 0, 0, 0.125)",
     borderRadius: 8,
-    marginBottom: 10,
+    // marginBottom: 10,
     width: "100%",
   },
   accordionButton: {
@@ -111,6 +112,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     color: "grey",
+    textTransform: "capitalize",
   },
   status: {
     fontSize: 12,
@@ -119,29 +121,19 @@ const styles = StyleSheet.create({
   },
   statusBadge: {
     marginLeft: 5,
-    fontSize: 8,
+    fontSize: 10,
     color: "#fc410c",
     fontWeight: "bold",
     backgroundColor: "#ecbaa966",
-    paddingVertical: 5,
-    paddingHorizontal: 5,
+    paddingVertical: 4,
+    paddingHorizontal: 4,
     borderRadius: 40,
     borderWidth: 0.25,
     borderColor: "rgba(0, 0, 0, 0.125)",
-  },
-  priorityBadge: {
-    fontSize: 10,
-    marginLeft: 20,
-    color: "#fc410c",
-    fontWeight: "bold",
-    paddingVertical: 2,
-    paddingHorizontal: 2,
-    borderRadius: 40,
-    borderWidth: 0.25,
-    borderColor: "#ecbaa9",
+    marginBottom: 5,
   },
   accordionBody: {
-    padding: "1rem 1.25rem",
+    // padding: 16,
     backgroundColor: "white",
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 8,

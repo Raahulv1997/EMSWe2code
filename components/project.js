@@ -3,14 +3,15 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { GetProjectsApi } from "./Api/api";
 import { Flex } from "@react-native-material/core";
 import ProjectBox from "./projectBox";
+import { useNavigation } from "@react-navigation/native";
 const Project = () => {
   const [projectList, setProjectList] = useState([]);
-  const [addProjectModal, setAddProjectList] = useState(false);
+  let navigate = useNavigation();
   /*Function to get the Project list */
   const GetProjectList = async () => {
     try {
       let projectRes = await GetProjectsApi();
-      console.log("data--" + JSON.stringify(projectRes.projects));
+      // console.log("data--" + JSON.stringify(projectRes.projects));
       setProjectList(projectRes.projects);
     } catch (err) {
       console.log(err);
@@ -29,7 +30,7 @@ const Project = () => {
             <Text style={styles.heading}>Project Management</Text>
             <TouchableOpacity
               style={styles.addButton}
-              onPress={() => setAddProjectList(true)}
+              onPress={() => navigate.navigate("addproject")}
             >
               <Text style={styles.buttonText}>Add Project</Text>
             </TouchableOpacity>
@@ -39,7 +40,6 @@ const Project = () => {
           })}
         </View>
       </View>
-      {addProjectModal ? addProjectModal : null}
     </Flex>
   );
 };
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     justifyContent: "space-between",
     gap: "10px",
-    height: "calc(100vh - 128px)",
+    height: "calc(100vh - 200px)",
     padding: "10px",
     flexWrap: "wrap",
     overflow: "scroll",

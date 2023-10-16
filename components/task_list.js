@@ -10,7 +10,7 @@ import {
   Text,
   Badge,
 } from "@react-native-material/core";
-import { Image, StyleSheet } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 const TaskList = () => {
@@ -24,84 +24,71 @@ const TaskList = () => {
   });
   return (
     <>
-      <Flex
+      {/* <Flex
         style={{
           width: "100%",
-          flexDirection: "row",
-          justifyContent: "space-between",
         }}
       >
-        <table
-          style={{
-            width: "100%",
-            fontFamily: "Poppins",
-            textAlign: "left",
-            fontWeight: "normal",
-          }}
-        >
-          <tbody>
-            <tr>
-              <th>Image</th>
-              <th>Task</th>
-              <th>Due Date</th>
-              <th>Priority</th>
-              <th>Assign</th>
-              <th>Status</th>
-            </tr>
-            <tr>
-              <td>
-                <Feather name="check-circle" size={24} color="black" />
-              </td>
-              <td>Lorem ipsum dolor sit amet. Qui quibusdam recusandae</td>
-              <td>11 Aug 23</td>
-              <td>
-                <Badge
-                  labelStyle={{ fontSize: "10px", color: "white" }}
-                  label={"High"}
-                  color={1 === 1 ? "red" : 1 == 2 ? "orange" : "info"}
+        <Flex>
+          <View>Image</View>
+          <View>Task</View>
+          <View>Due Date</View>
+          <View>Priority</View>
+          <View>Assign</View>
+          <View>Status</View>
+        </Flex>
+        <Flex direction="row">
+          <View>
+            <Feather name="check-circle" size={24} color="black" />
+          </View>
+          <View>Lorem ipsum dolor sit amet. Qui quibusdam recusandae</View>
+          <View>11 Aug 23</View>
+          <View>
+            <Badge
+              labelStyle={{ fontSize: "10px", color: "white" }}
+              label={"High"}
+              color={1 === 1 ? "red" : 1 == 2 ? "orange" : "info"}
+            />
+          </View>
+          <View>
+            <Avatar
+              size={40}
+              image={
+                <Image
+                  source={{
+                    uri: "https://mui.com/static/images/avatar/2.jpg",
+                  }}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    borderRadius: 28,
+                  }}
                 />
-              </td>
-              <td>
-                <Avatar
-                  size={40}
-                  image={
-                    <Image
-                      source={{
-                        uri: "https://mui.com/static/images/avatar/2.jpg",
-                      }}
-                      style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        borderRadius: 28,
-                      }}
-                    />
-                  }
-                />
-              </td>
-              <td>
-                <Badge
-                  labelStyle={{ fontSize: "10px" }}
-                  label={"In Progress"}
-                  color="red"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>1</td>
-              <td>1</td>
-              <td>
-                <Badge label={123} color="primary" />
-              </td>
-              <td>1</td>
-              <td>1</td>
-            </tr>
-          </tbody>
-        </table>
-      </Flex>
+              }
+            />
+          </View>
+          <View>
+            <Badge
+              labelStyle={{ fontSize: "10px" }}
+              label={"In Progress"}
+              color="red"
+            />
+          </View>
+        </Flex>
+        <Flex>
+          <View>1</View>
+          <View>1</View>
+          <View>1</View>
+          <View>
+            <Badge label={123} color="primary" />
+          </View>
+          <View>1</View>
+          <View>1</View>
+        </Flex>
+      </Flex> */}
     </>
   );
 };

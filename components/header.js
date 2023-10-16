@@ -7,9 +7,11 @@ import {
 } from "@react-native-material/core";
 import { StyleSheet } from "react-native";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
+import { useNavigation } from "@react-navigation/native";
 
 const AppHeader = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  let navigate = useNavigation();
+  const loggedIn = localStorage.getItem("token");
   const styles = StyleSheet.create({
     container: {
       width: "100%",
@@ -17,6 +19,7 @@ const AppHeader = () => {
       // top: 0,
     },
   });
+
   return (
     <AppBar
       style={styles.container}
@@ -30,8 +33,11 @@ const AppHeader = () => {
       trailing={(props) =>
         loggedIn ? (
           <IconButton
-            icon={<Avatar label="Yaman KATBY" size={28} />}
-            onPress={() => setLoggedIn(!loggedIn)}
+            icon={<Avatar label="Rahul verma" size={28} />}
+            onPress={() => {
+              localStorage.clear();
+              navigate.navigate("login");
+            }}
             {...props}
           />
         ) : (
@@ -40,7 +46,7 @@ const AppHeader = () => {
             title="Login"
             compact
             style={{ marginEnd: 4 }}
-            onPress={() => setLoggedIn(!loggedIn)}
+            onPress={() => navigate.navigate("login")}
             {...props}
           />
         )

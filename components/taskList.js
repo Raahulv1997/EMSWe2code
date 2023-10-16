@@ -116,103 +116,86 @@ const TaskList = (props) => {
         </View>
       )}
     </View>
-  );
-};
+// import React from "react";
+// import { View, StyleSheet, Text, ScrollView } from "react-native";
+// import { DataTable } from "react-native-paper";
+// import AddUpdateTask from "./addupdateTask";
 
-const styles = StyleSheet.create({
-  cardBody: {
-    padding: 0,
-  },
-  tableResponsive: {
-    flex: 1,
-    overflowX: "auto",
-  },
-  tableContainer: {
-    width: "100%",
-    marginTop: 1,
-    marginBottom: 1,
-    overflowX: "auto",
-  },
-  tableHeader: {
-    borderBottomWidth: 1,
-    borderColor: "gray",
-  },
-  tableRow: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  tableHeaderCell: {
-    padding: 0.75,
-  },
-  tableHeaderText: {
-    fontWeight: "bold",
-    margin: "10px",
-  },
-  tableCell: {
-    padding: 0.75,
-    // paddingHorizontal:12
-  },
-  tableColText: {
-    margin: "10px",
-  },
-  textDark: {
-    color: "#343a40",
-    margin: "10px",
-  },
-  dueDate: {
-    fontSize: 9,
-    margin: "10px",
-  },
-  priorityBadge: {
-    fontSize: 10,
-    margin: "10px",
-    color: "#fc410c",
-    fontWeight: "bold",
-    paddingVertical: 2,
-    paddingHorizontal: 2,
-    borderRadius: 40,
-    borderWidth: 0.25,
-    borderColor: "#ecbaa9",
-  },
-  assignContainer: {
-    position: "relative",
-  },
-  assignDropdownToggle: {
-    flexDirection: "row",
-    alignItems: "center",
-    textDecorationLine: "none",
-  },
-  assignImage: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    marginRight: 5,
-  },
-  assignBadge: {
-    margin: "10px",
-    marginLeft: "25px",
-    backgroundColor: "#6c757d",
-    padding: 4,
-    borderRadius: 4,
-    fontSize: 12,
-    fontWeight: "bold",
-    color: "white",
-  },
-  statusBadge: {
-    backgroundColor: "#dc3545",
-    borderRadius: "40px",
-    paddingVertical: 2,
-    paddingHorizontal: 4,
-    color: "white",
-    margin: "10px",
-  },
-  statusText: {
-    color: "#dc3545",
-  },
-  arrowLink: {
-    textDecorationLine: "none",
-    color: "#000",
-  },
-});
+// const TaskList = ({ taskData, id }) => {
+//   return (
+//     <ScrollView contentContainerStyle={styles.container}>
+//       <DataTable>
+//         <DataTable.Header>
+//           <DataTable.Title>Task Name</DataTable.Title>
+//           <DataTable.Title>Due Date</DataTable.Title>
+//           <DataTable.Title>Priority</DataTable.Title>
+//           <DataTable.Title>Assign</DataTable.Title>
+//           <DataTable.Title>Status</DataTable.Title>
+//         </DataTable.Header>
 
-export default TaskList;
+//         {(taskData || []).map((task, index) => (
+//           <DataTable.Row key={index}>
+//             <DataTable.Cell>{task.task_name}</DataTable.Cell>
+//             <DataTable.Cell>{task.due_date}</DataTable.Cell>
+//             <DataTable.Cell>
+//               <Text style={styles.priorityBadge}>{task.priority}</Text>
+//             </DataTable.Cell>
+//             <DataTable.Cell>
+//               <Text style={styles.assignBadge}>
+//                 {task.assign ? task.assign.name : "NA"}
+//               </Text>
+//             </DataTable.Cell>
+//             <DataTable.Cell>
+//               <Text style={styles.statusBadge}>{task.status}</Text>
+//             </DataTable.Cell>
+//           </DataTable.Row>
+//         ))}
+//       </DataTable>
+//       <AddUpdateTask id={id} />
+//     </ScrollView>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flexGrow: 1,
+//     padding: 10,
+//     marginLeft: 10,
+//   },
+//   priorityBadge: {
+//     fontSize: 12,
+//     color: "#fc410c",
+//     fontWeight: "bold",
+//     paddingVertical: 2,
+//     paddingHorizontal: 5,
+//     borderRadius: 40,
+//     borderWidth: 0.25,
+//     borderColor: "#ecbaa9",
+//   },
+//   assignBadge: {
+//     backgroundColor: "#6c757d",
+//     padding: 6,
+//     borderRadius: 40,
+//     fontSize: 14,
+//     fontWeight: "bold",
+//     color: "white",
+//   },
+//   statusBadge: {
+//     backgroundColor: "#dc3545",
+//     borderRadius: 60,
+//     paddingVertical: 4,
+//     paddingHorizontal: 8,
+//     color: "white",
+//     margin: "10px",
+//   },
+//   statusText: {
+//     color: "#dc3545",
+//   },
+//   arrowLink: {
+//     textDecorationLine: "none",
+//     color: "#000",
+//     marginVertical: 10,
+//   },
+// });
+
+// export default TaskList;

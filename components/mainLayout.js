@@ -8,6 +8,7 @@ import AppBody from "../components/body";
 import Task from "./project";
 import { UserDetails } from "./UserDetails";
 import LoginScreen from "./LoginScreen";
+import { AllUsers } from "./AllUsers";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,21 +17,66 @@ export default function MainLayout() {
 
   return (
     <NavigationContainer>
-      {token !== null ? (
-        <>
-          <AppHeader />
-          <Stack.Navigator style={styles.container}>
-            <Stack.Screen name="body" component={AppBody} />
-            <Stack.Screen name="project" component={Task} />
-            <Stack.Screen name="userDetails" component={UserDetails} />
-          </Stack.Navigator>
-          <AppFooter />
-        </>
-      ) : (
-        <Stack.Navigator style={styles.container}>
-          <Stack.Screen name="login" component={LoginScreen} />
-        </Stack.Navigator>
-      )}
+      <Stack.Navigator
+        initialRouteName={token ? "body" : "login"}
+        screenOptions={{
+          headerShown: false, // Hide the header
+        }}
+        style={styles.container}
+      >
+        <Stack.Screen
+          name="body"
+          options={{
+            headerLeft: () => null, // Remove the back arrow button
+          }}
+        >
+          {() => (
+            <>
+              <AppHeader />
+              <AppBody />
+              <AppFooter />
+            </>
+          )}
+        </Stack.Screen>
+        <Stack.Screen
+          name="project"
+          options={{
+            headerLeft: () => null, // Remove the back arrow button
+          }}
+          component={() => (
+            <>
+              <AppHeader />
+              <Task />
+              <AppFooter />
+            </>
+          )}
+        />
+        <Stack.Screen
+          name="allusers"
+          component={() => (
+            <>
+              <AppHeader />
+              <AllUsers />
+              <AppFooter />
+            </>
+          )}
+        />
+        <Stack.Screen
+          name="userDetails"
+          component={() => (
+            <>
+              <AppHeader />
+              <UserDetails />
+              <AppFooter />
+            </>
+          )}
+        />
+        <Stack.Screen
+          name="login"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

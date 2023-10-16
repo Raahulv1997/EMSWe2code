@@ -15,10 +15,10 @@ export default function AppFooter() {
         <Octicons name="tasklist" size={24} color="white">
           User Details
         </Octicons>
-      </TouchableOpacity>{" "}
-      <TouchableOpacity onPress={() => navigate.navigate("login")}>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigate.navigate("allusers")}>
         <Octicons name="tasklist" size={24} color="white">
-          login
+          All Users
         </Octicons>
       </TouchableOpacity>{" "}
     </AppBar>

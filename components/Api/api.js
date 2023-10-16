@@ -1,8 +1,7 @@
 import axios from "axios";
 const API_URL = "https://apnaorganicstore.in/attendance/public/api/";
-let Token =
-  "lFXFKfknOoBxDBw0lx3dGDpDaqdE7gTp6PAMzX1b"; /*localStorage.getItem("token");*/
-localStorage.setItem("token", Token);
+let Token = localStorage.getItem("token");
+
 /*Api to get projects */
 export const GetProjectsApi = async () => {
   const response = await axios.post(`${API_URL}project/getProjects`, "", {
@@ -90,10 +89,56 @@ export const GetUserListApi = async () => {
   return response.data;
 };
 
+export const GetAllUserList = async () => {
+  const response = await axios.post(
+    `${API_URL}admin/users`,
+    {},
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Token}`,
+      },
+    }
+  );
+  return response.data;
+};
+
 export const userLogin = async (phone, password) => {
   const response = await axios.post(`${API_URL}auth/login`, {
     phone: phone,
     password: password,
+  });
+  return response.data;
+};
+
+export const UpdateUserApi = async (data) => {
+  delete data["institution_id"];
+  delete data["role"];
+  delete data["image"];
+  delete data["email_verified_at"];
+  delete data["email_verified_at"];
+  delete data["is_active"];
+  delete data["approved"];
+  delete data["created_by"];
+  delete data["updated_by"];
+  delete data["deleted_at"];
+  delete data["created_at"];
+  delete data["deleted_at"];
+  delete data["updated_at"];
+
+  console.log(data);
+  const response = await axios.put(`${API_URL}admin/users/update`, data, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${Token}`,
+    },
+  });
+  return response.data;
+};
+
+export const deleteUser = async (id) => {
+  const response = await axios.post(`${API_URL}user/deleteUser`, {
+    id: id,
   });
   return response.data;
 };

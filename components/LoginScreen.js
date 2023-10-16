@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import * as React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { TextInput, Button, Appbar } from "react-native-paper";
@@ -5,6 +6,7 @@ import { userLogin } from "./Api/api";
 import useValidation from "./comman/useValidation";
 
 const LoginScreen = () => {
+  let navigate = useNavigation();
   const IntialFormState = {
     phone: "",
     password: "",
@@ -17,10 +19,8 @@ const LoginScreen = () => {
     ],
     password: [(value) => (value === "" ? "Password is required" : null)],
   };
-  const { state, onInputChange, setErrors, errors, validate } = useValidation(
-    IntialFormState,
-    validators
-  );
+  const { state, onInputChange, setState, setErrors, errors, validate } =
+    useValidation(IntialFormState, validators);
 
   const handleLogin = async () => {
     if (validate()) {
@@ -28,6 +28,8 @@ const LoginScreen = () => {
       console.log("kkk" + JSON.stringify(response));
       if (response.message === "Login Success") {
         localStorage.setItem("token", response.data.token);
+        setState({ phone: "", password: "" });
+        navigate.navigate("body");
       }
       if (response.message === "Invalid login information") {
         setErrors("invalid Information");

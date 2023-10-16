@@ -12,7 +12,7 @@ import {
 } from "react-native-paper";
 import { DataTable } from "react-native-paper";
 import { deleteUser, GetUserListApi, UpdateUserApi } from "./Api/api";
-import useValidation from "./comman/UseValidaion";
+import UseValidation from "./comman/UseValidaion";
 // import Toast from "react-native-toast-message"; //
 export const UserDetails = () => {
   const [userDetails, setUserDetails] = useState({});
@@ -90,7 +90,7 @@ export const UserDetails = () => {
     ],
   };
   const { state, onInputChange, setState, setErrors, errors, validate } =
-    useValidation(IntialFormState, validators);
+    useValidaion(IntialFormState, validators);
 
   const containerStyle = {
     backgroundColor: "white",

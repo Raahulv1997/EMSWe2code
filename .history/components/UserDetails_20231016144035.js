@@ -12,8 +12,8 @@ import {
 } from "react-native-paper";
 import { DataTable } from "react-native-paper";
 import { deleteUser, GetUserListApi, UpdateUserApi } from "./Api/api";
-import useValidation from "./comman/UseValidaion";
-// import Toast from "react-native-toast-message"; //
+import useValidation from "./comman/useValidation";
+import Toast from "react-native-toast-message"; //
 export const UserDetails = () => {
   const [userDetails, setUserDetails] = useState({});
 

@@ -19,8 +19,15 @@ const LoginScreen = () => {
     ],
     password: [(value) => (value === "" ? "Password is required" : null)],
   };
+<<<<<<< HEAD
   const { state, onInputChange, setState, setErrors, errors, validate } =
-    UseValidation(IntialFormState, validators);
+    useValidation(IntialFormState, validators);
+=======
+  const { state, onInputChange, setErrors, errors, validate } = UseValidation(
+    IntialFormState,
+    validators
+  );
+>>>>>>> master
 
   const handleLogin = async () => {
     if (validate()) {

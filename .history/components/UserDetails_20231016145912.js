@@ -90,7 +90,7 @@ export const UserDetails = () => {
     ],
   };
   const { state, onInputChange, setState, setErrors, errors, validate } =
-    useValidation(IntialFormState, validators);
+    useValidaion(IntialFormState, validators);
 
   const containerStyle = {
     backgroundColor: "white",

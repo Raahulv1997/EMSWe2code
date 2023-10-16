@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     padding: "10px",
     flexWrap: "wrap",
     overflow: "scroll",
+    marginTop: 100,
   },
   contentBody: {
     flex: 1,

@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import TaskList from "./taskList";
 import { GetTaskApi } from "./Api/api";
@@ -8,7 +8,7 @@ export default function ProjectBox({ projectData }) {
   /*Function to get Task list */
   const GetTaskList = async () => {
     try {
-      let response = await GetTaskApi(taskId ?taskId :projectData.id);
+      let response = await GetTaskApi(taskId ? taskId : projectData.id);
       setTaskList(response.tasks);
     } catch (err) {
       console.log(err);
@@ -43,7 +43,7 @@ export default function ProjectBox({ projectData }) {
               </View>
             </TouchableOpacity>
             <View style={styles.accordionBody}>
-              <TaskList taskData={taskList} />
+              <TaskList taskData={taskList} id={projectData.id} />
             </View>
           </View>
         </View>
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(0, 0, 0, 0.125)",
     borderRadius: 8,
-    marginBottom: 10,
+    // marginBottom: 10,
     width: "100%",
   },
   accordionButton: {

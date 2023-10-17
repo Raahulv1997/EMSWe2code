@@ -48,28 +48,31 @@ export const AllUsers = () => {
             <>
               <Card style={{ marginBottom: "10px" }}>
                 <Card.Title
-                  title={item.name}
-                  subtitle={item.role}
-                  left={(props) => <Avatar.Icon {...props} icon="folder" />}
+                  title={
+                    <>
+                      <Text variant="titleMedium">
+                        {item.name} ({item.role})
+                      </Text>
+                    </>
+                  }
+                  subtitle={
+                    <>
+                      <Text variant="titleMedium">{item.email} </Text>
+                      <br />
+                      <Text variant="titleMedium">{item.phone}</Text>
+                    </>
+                  }
+                  left={(props) => (
+                    <Avatar.Image
+                      size={50}
+                      source={require("../components/comman/images.png")}
+                    />
+                    // <Avatar.Icon {...props} icon="account-circle" />
+                  )}
                   // right={(props) => (
                   //   <IconButton {...props} icon="dots-vertical" onPress={() => {}} />
                   // )}
                 />
-                <Card.Content>
-                  <Text variant="titleMedium">
-                    Institution :-{" "}
-                    <Text variant="bodyMedium">
-                      {item.institution_id
-                        ? item.institution_id.name
-                        : "not available"}
-                    </Text>{" "}
-                  </Text>
-                </Card.Content>
-                <Card.Content>
-                  <Text variant="titleMedium">
-                    Email :- <Text variant="bodyMedium">{item.email}</Text>{" "}
-                  </Text>
-                </Card.Content>
 
                 <Card.Actions>
                   <Button>Update</Button>

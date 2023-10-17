@@ -4,13 +4,14 @@ import {
   Button,
   Text,
   Portal,
-  IconButton,
   Modal,
   PaperProvider,
   TextInput,
   Dialog,
+  Card,
+  Avatar,
 } from "react-native-paper";
-import { DataTable } from "react-native-paper";
+
 import { deleteUser, GetUserListApi, UpdateUserApi } from "./Api/api";
 import useValidation from "./comman/UseValidaion";
 // import Toast from "react-native-toast-message"; //
@@ -121,7 +122,7 @@ export const UserDetails = () => {
   const onUpdateClick = async () => {
     if (validate()) {
       const response = await UpdateUserApi(state);
-      console.log("dd0-" + JSON.stringify(response));
+
       if (response.message === "User updated.") {
         Toast.show({
           text1: "User Updated Successfully",
@@ -136,86 +137,61 @@ export const UserDetails = () => {
 
   const onDeleteClick = async (id) => {
     const response = await deleteUser(id);
-    console.log("reee--" + JSON.stringify(response));
   };
   return (
     <PaperProvider>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text variant="headlineMedium">User Details</Text>
-          <Button
-            mode="contained"
-            textColor="white"
-            onPress={() => console.log("Pressed")}
-          >
-            Add user
-          </Button>
+          <Text variant="headlineMedium">Profile</Text>
         </View>{" "}
         <View>
-          <DataTable>
-            <DataTable.Row>
-              <DataTable.Title>Name</DataTable.Title>
-              <DataTable.Cell>{userDetails.name}</DataTable.Cell>{" "}
-            </DataTable.Row>
-            <DataTable.Row>
-              <DataTable.Title>Phone</DataTable.Title>{" "}
-              <DataTable.Cell>{userDetails.phone}</DataTable.Cell>
-            </DataTable.Row>
+          <Card style={{ marginBottom: "10px" }}>
+            <Card.Title
+              title={userDetails.name}
+              subtitle={userDetails.role}
+              left={(props) => <Avatar.Icon {...props} icon="folder" />}
+              // right={(props) => (
+              //   <IconButton {...props} icon="dots-vertical" onPress={() => {}} />
+              // )}
+            />
+            <Card.Content>
+              <Text variant="titleMedium">
+                Institution :-{" "}
+                <Text variant="bodyMedium">
+                  {" "}
+                  {userDetails.institution_id
+                    ? userDetails.institution_id.name
+                    : "not availbele"}
+                </Text>{" "}
+              </Text>
+            </Card.Content>
+            <Card.Content>
+              <Text variant="titleMedium">
+                Email :- <Text variant="bodyMedium">{userDetails.email}</Text>{" "}
+              </Text>
+            </Card.Content>
+            <Card.Content>
+              <Text variant="titleMedium">
+                Phone :- <Text variant="bodyMedium">{userDetails.phone}</Text>{" "}
+              </Text>
+            </Card.Content>
+            <Card.Content>
+              <Text variant="titleMedium">
+                Gender :- <Text variant="bodyMedium">{userDetails.gender}</Text>{" "}
+              </Text>
+            </Card.Content>
+            <Card.Content>
+              <Text variant="titleMedium">
+                D.O.B :-{" "}
+                <Text variant="bodyMedium">{userDetails.date_of_birth}</Text>{" "}
+              </Text>
+            </Card.Content>
 
-            <DataTable.Row>
-              <DataTable.Title>Email</DataTable.Title>
-              <DataTable.Cell>{userDetails.email}</DataTable.Cell>
-            </DataTable.Row>
-
-            <DataTable.Row>
-              <DataTable.Title>Gender</DataTable.Title>{" "}
-              <DataTable.Cell>{userDetails.gender}</DataTable.Cell>
-            </DataTable.Row>
-
-            <DataTable.Row>
-              <DataTable.Title>Institution Name</DataTable.Title>{" "}
-              <DataTable.Cell>
-                {userDetails.institution_id
-                  ? userDetails.institution_id.name
-                  : "not availbele"}
-              </DataTable.Cell>
-            </DataTable.Row>
-
-            <DataTable.Row>
-              <DataTable.Title>DOB</DataTable.Title>{" "}
-              <DataTable.Cell>{userDetails.date_of_birth}</DataTable.Cell>
-            </DataTable.Row>
-
-            <DataTable.Row>
-              <DataTable.Title>Role</DataTable.Title>{" "}
-              <DataTable.Cell>{userDetails.role}</DataTable.Cell>
-            </DataTable.Row>
-
-            <DataTable.Row>
-              <DataTable.Title>Action</DataTable.Title>{" "}
-              <DataTable.Cell>
-                <IconButton
-                  icon="update"
-                  mode="outlined"
-                  textColor="red"
-                  onPress={showModal}
-                ></IconButton>{" "}
-                <IconButton
-                  icon="delete"
-                  mode="outlined"
-                  textColor="red"
-                  onPress={() => setDeleteAlertShow(true)}
-                ></IconButton>{" "}
-              </DataTable.Cell>
-            </DataTable.Row>
-          </DataTable>
-          <DataTable.Pagination
-            page={1}
-            numberOfPages={3} // Adjust this based on your data length
-            onPageChange={(page) => {
-              // Handle page change here
-            }}
-          />
+            <Card.Actions>
+              <Button onPress={showModal}>Update</Button>
+              <Button onPress={() => setDeleteAlertShow(true)}>Delete</Button>
+            </Card.Actions>
+          </Card>
         </View>
         <Portal>
           <Modal

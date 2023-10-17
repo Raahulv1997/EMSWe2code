@@ -12,11 +12,11 @@ export default function AppBody() {
         alignItems: "flex-start",
         justifyContent: "space-between",
         gap: "10px",
-        height: "calc(100vh - 128px)",
+        height: "calc(100vh - 200px)",
         padding: "10px",
         flexWrap: "wrap",
         overflow: "scroll",
-        // marginTop: "64px",
+        marginTop: 70,
       }}
     >
       <TaskList />

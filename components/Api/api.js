@@ -64,9 +64,9 @@ export const UpdateTaskApi = async (data) => {
   return response.data;
 };
 /*Function to Update Task */
-export const DeleteTaskApi = async (data) => {
+export const DeleteTaskApi = async (id) => {
   console.log(id);
-  const response = await axios.put(
+  const response = await axios.post(
     `${API_URL}task/delete/${id}`,
     { id: id },
     {

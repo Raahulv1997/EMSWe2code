@@ -9,6 +9,8 @@ import Task from "../project";
 import { UserDetails } from "../UserDetails";
 import LoginScreen from "../LoginScreen";
 import { AllUsers } from "../AllUsers";
+import AddProjectForm from "../forms/addProject";
+import AttendancePage from "../attendance";
 
 const Stack = createNativeStackNavigator();
 
@@ -67,6 +69,32 @@ export default function MainLayout() {
             <>
               <AppHeader />
               <UserDetails />
+              <AppFooter />
+            </>
+          )}
+        />
+        <Stack.Screen
+          name="addproject"
+          options={{
+            headerLeft: () => null, // Remove the back arrow button
+          }}
+          component={() => (
+            <>
+              <AppHeader />
+              <AddProjectForm />
+              <AppFooter />
+            </>
+          )}
+        />
+        <Stack.Screen
+          name="attendance"
+          options={{
+            headerLeft: () => null, // Remove the back arrow button
+          }}
+          component={() => (
+            <>
+              <AppHeader />
+              <AttendancePage />
               <AppFooter />
             </>
           )}

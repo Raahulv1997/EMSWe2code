@@ -1,9 +1,33 @@
 import React from "react";
-import { View, StyleSheet, Text, ScrollView } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, ScrollView } from "react-native";
 import { DataTable } from "react-native-paper";
 import AddUpdateTask from "./forms/addupdateTask";
-
-const TaskList = ({ taskData, id }) => {
+import { DeleteTaskApi } from "./Api/api";
+import Icon from "react-native-vector-icons/FontAwesome";
+import Toast from "react-native-toast-message";
+const TaskList = ({ taskData, id, setApiCall }) => {
+  /*Function to delete task */
+  const onDelete = async (task_id) => {
+    try {
+      let res = await DeleteTaskApi(task_id);
+      if (res.message === "Deleted successfully") {
+        setApiCall(true);
+        Toast.show({
+          type: "success",
+          position: "top",
+          text1: "Task deleted successfully",
+        });
+      } else {
+        Toast.show({
+          type: "error",
+          position: "top",
+          text1: "Something went wrong",
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <DataTable>
@@ -13,6 +37,7 @@ const TaskList = ({ taskData, id }) => {
           <DataTable.Title>Priority</DataTable.Title>
           <DataTable.Title>Assign</DataTable.Title>
           <DataTable.Title>Status</DataTable.Title>
+          <DataTable.Title>Action</DataTable.Title>
         </DataTable.Header>
 
         {(taskData || []).map((task, index) => (
@@ -30,10 +55,17 @@ const TaskList = ({ taskData, id }) => {
             <DataTable.Cell>
               <Text style={styles.statusBadge}>{task.status}</Text>
             </DataTable.Cell>
+            <DataTable.Cell>
+              <Text style={{ paddingLeft: 20 }}>
+                <TouchableOpacity onPress={() => onDelete(task.id)}>
+                  <Icon name="trash" size={20} color="red" />
+                </TouchableOpacity>
+              </Text>
+            </DataTable.Cell>
           </DataTable.Row>
         ))}
       </DataTable>
-      <AddUpdateTask id={id} />
+      <AddUpdateTask id={id} setApiCall={setApiCall} />
     </ScrollView>
   );
 };

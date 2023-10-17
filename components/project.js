@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { GetProjectsApi } from "./Api/api";
 import { Flex } from "@react-native-material/core";
-import ProjectBox from "./projectBox";
+import ProjectBox from "./comman/projectBox";
 import { useNavigation } from "@react-navigation/native";
 const Project = () => {
   const [projectList, setProjectList] = useState([]);

@@ -11,101 +11,118 @@ import LoginScreen from "../LoginScreen";
 import { AllUsers } from "../AllUsers";
 import AddProjectForm from "../forms/addProject";
 import AttendancePage from "../attendance";
-
+import UserAttendenceHistory from "../userAttendenceHistory";
+import { Provider } from "react-redux";
+import store from "../Redux/store";
 const Stack = createNativeStackNavigator();
 
 export default function MainLayout() {
   const token = localStorage.getItem("token");
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName={token ? "body" : "login"}
-        screenOptions={{
-          headerShown: false, // Hide the header
-        }}
-        style={styles.container}
-      >
-        <Stack.Screen
-          name="body"
-          options={{
-            headerLeft: () => null, // Remove the back arrow button
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName={token ? "body" : "login"}
+          screenOptions={{
+            headerShown: false, // Hide the header
           }}
+          style={styles.container}
         >
-          {() => (
-            <>
-              <AppHeader />
-              <AppBody />
-              <AppFooter />
-            </>
-          )}
-        </Stack.Screen>
-        <Stack.Screen
-          name="project"
-          options={{
-            headerLeft: () => null, // Remove the back arrow button
-          }}
-          component={() => (
-            <>
-              <AppHeader />
-              <Task />
-              <AppFooter />
-            </>
-          )}
-        />
-        <Stack.Screen
-          name="allusers"
-          component={() => (
-            <>
-              <AppHeader />
-              <AllUsers />
-              <AppFooter />
-            </>
-          )}
-        />
-        <Stack.Screen
-          name="userDetails"
-          component={() => (
-            <>
-              <AppHeader />
-              <UserDetails />
-              <AppFooter />
-            </>
-          )}
-        />
-        <Stack.Screen
-          name="addproject"
-          options={{
-            headerLeft: () => null, // Remove the back arrow button
-          }}
-          component={() => (
-            <>
-              <AppHeader />
-              <AddProjectForm />
-              <AppFooter />
-            </>
-          )}
-        />
-        <Stack.Screen
-          name="attendance"
-          options={{
-            headerLeft: () => null, // Remove the back arrow button
-          }}
-          component={() => (
-            <>
-              <AppHeader />
-              <AttendancePage />
-              <AppFooter />
-            </>
-          )}
-        />
-        <Stack.Screen
-          name="login"
-          component={LoginScreen}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+          <Stack.Screen
+            name="body"
+            options={{
+              headerLeft: () => null, // Remove the back arrow button
+            }}
+          >
+            {() => (
+              <>
+                <AppHeader />
+                <AppBody />
+                <AppFooter />
+              </>
+            )}
+          </Stack.Screen>
+          <Stack.Screen
+            name="project"
+            options={{
+              headerLeft: () => null, // Remove the back arrow button
+            }}
+            component={() => (
+              <>
+                <AppHeader />
+                <Task />
+                <AppFooter />
+              </>
+            )}
+          />
+          <Stack.Screen
+            name="allusers"
+            component={() => (
+              <>
+                <AppHeader />
+                <AllUsers />
+                <AppFooter />
+              </>
+            )}
+          />
+          <Stack.Screen
+            name="userDetails"
+            component={() => (
+              <>
+                <AppHeader />
+                <UserDetails />
+                <AppFooter />
+              </>
+            )}
+          />
+          <Stack.Screen
+            name="addproject"
+            options={{
+              headerLeft: () => null, // Remove the back arrow button
+            }}
+            component={() => (
+              <>
+                <AppHeader />
+                <AddProjectForm />
+                <AppFooter />
+              </>
+            )}
+          />
+          <Stack.Screen
+            name="attendance"
+            options={{
+              headerLeft: () => null, // Remove the back arrow button
+            }}
+            component={() => (
+              <>
+                <AppHeader />
+                <AttendancePage />
+                <AppFooter />
+              </>
+            )}
+          />
+          <Stack.Screen
+            name="userattendancehistory"
+            options={{
+              headerLeft: () => null, // Remove the back arrow button
+            }}
+            component={() => (
+              <>
+                <AppHeader />
+                <UserAttendenceHistory />
+                <AppFooter />
+              </>
+            )}
+          />
+          <Stack.Screen
+            name="login"
+            component={LoginScreen}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 

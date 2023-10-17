@@ -79,20 +79,58 @@ export const DeleteTaskApi = async (id) => {
   return response.data;
 };
 
-export const GetUserListApi = async () => {
-  const response = await axios.get(`${API_URL}user`, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${Token}`,
+/*Api to get attendance of user  */
+export const GeUserAttendance = async (id) => {
+  console.log(id);
+  const response = await axios.post(
+    `${API_URL}attendance`,
+    { user_id: id },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Token}`,
+      },
+    }
+  );
+  return response.data;
+};
+/*Function to set or change attendece of user */
+export const ChangAttendanceStatus = async (id, date, status) => {
+  const response = await axios.post(
+    `${API_URL}admin/change/status`,
+    {
+      user_id: id,
+      date: date,
+      mark_as_a: status,
     },
-  });
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Token}`,
+      },
+    }
+  );
+  return response.data;
+};
+export const GetUserListApi = async ({ id }) => {
+  const response = await axios.get(
+    `${API_URL}user`,
+    { id: id },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Token}`,
+      },
+    }
+  );
   return response.data;
 };
 
-export const GetAllUserList = async () => {
+export const GetAllUserList = async (date) => {
+  console.log(date);
   const response = await axios.post(
     `${API_URL}admin/users`,
-    {},
+    { date: date },
     {
       headers: {
         "Content-Type": "application/json",

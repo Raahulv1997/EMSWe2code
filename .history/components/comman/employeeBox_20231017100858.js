@@ -14,12 +14,12 @@ const EmployeeBox = ({ employee }) => {
         />
       </View>
       <View style={styles.infoContainer}>
-        <Text style={styles.name}>Aashi</Text>
+        <Text style={styles.name}>{employee ? employee.name : "N/A"}</Text>
         <View style={styles.timeContainer}>
-          <Text>Punch In: 9.00 am</Text>
-          <Text>Punch Out: 7.00 pm</Text>
+          <Text>Punch In: {employee ? employee.punchInTime : "N/A"}</Text>
+          <Text>Punch Out: {employee ? employee.punchOutTime : "N/A"}</Text>
         </View>
-        <Text>Status: present</Text>
+        <Text>Status: {employee ? employee.status : "N/A"}</Text>
       </View>
     </View>
     // <View style={styles.container}>

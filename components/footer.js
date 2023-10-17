@@ -26,6 +26,11 @@ export default function AppFooter() {
           Attendance
         </Octicons>
       </TouchableOpacity>{" "}
+      <TouchableOpacity onPress={() => navigate.navigate("leaves")}>
+        <Octicons name="leaves" size={24} color="white">
+          leaves
+        </Octicons>
+      </TouchableOpacity>{" "}
     </AppBar>
   );
 }

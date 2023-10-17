@@ -11,6 +11,7 @@ import LoginScreen from "../LoginScreen";
 import { AllUsers } from "../AllUsers";
 import AddProjectForm from "../forms/addProject";
 import AttendancePage from "../attendance";
+import { Leaves } from "../Leaves";
 
 const Stack = createNativeStackNavigator();
 
@@ -59,6 +60,17 @@ export default function MainLayout() {
             <>
               <AppHeader />
               <AllUsers />
+              <AppFooter />
+            </>
+          )}
+        />
+
+        <Stack.Screen
+          name="leaves"
+          component={() => (
+            <>
+              <AppHeader />
+              <Leaves />
               <AppFooter />
             </>
           )}

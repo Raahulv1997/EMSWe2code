@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     justifyContent: "space-between",
     gap: "10px",
-    height: "calc(100vh - 145px)",
+    height: "calc(100vh - 200px)",
     padding: "10px",
     flexWrap: "wrap",
     overflow: "scroll",

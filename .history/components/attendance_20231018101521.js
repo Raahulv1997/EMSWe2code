@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     justifyContent: "space-between",
     margin: 5, // Changed 'gap' to 'margin'
-    height: "calc(100vh - 145px)",
+    height: "calc(100vh - 200px)",
     padding: 7,
     flexWrap: "wrap",
     overflow: "scroll",

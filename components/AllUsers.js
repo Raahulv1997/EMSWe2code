@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { Avatar, Button, Card, Searchbar, Text } from "react-native-paper";
 import { GetAllUserList } from "./Api/api";
+import { Box, Flex } from "@react-native-material/core";
 
 export const AllUsers = () => {
   const [getUserlist, setGetUserList] = useState([]);
@@ -26,60 +27,58 @@ export const AllUsers = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text variant="headlineMedium">All users</Text>
-        <Button
+        <Text variant="headlineSmall">User List</Text>
+        {/* <Button
           mode="contained"
+          variant="small"
           textColor="white"
           onPress={() => console.log("Pressed")}
         >
-          Add user
+          + Add user
+        </Button> */}
+        <Button mode="contained" onPress={() => console.log("Pressed")}>
+          + Add user
         </Button>
-      </View>{" "}
-      <View style={{ margin: "10px" }}>
-        <Searchbar
-          placeholder="Search"
-          // onChangeText={onChangeSearch}
-          // value={searchQuery}
-        />
       </View>
+      <Searchbar
+        placeholder="Search"
+        size="small"
+        style={{ height: "40px", marginBottom: 10 }}
+        // onChangeText={onChangeSearch}
+        // value={searchQuery}
+        // style={{ height: "30px" }}
+        inputStyle={{ minHeight: "40px" }}
+      />
       <ScrollView vertical={true}>
         {(getUserlist || []).map((item) => {
           return (
-            <>
-              <Card style={{ marginBottom: "10px" }}>
-                <Card.Title
-                  title={
-                    <>
-                      <Text variant="titleMedium">
-                        {item.name} ({item.role})
-                      </Text>
-                    </>
-                  }
-                  subtitle={
-                    <>
-                      <Text variant="titleMedium">{item.email} </Text>
-                      <br />
-                      <Text variant="titleMedium">{item.phone}</Text>
-                    </>
-                  }
-                  left={(props) => (
-                    <Avatar.Image
-                      size={50}
-                      source={require("../components/comman/images.png")}
-                    />
-                    // <Avatar.Icon {...props} icon="account-circle" />
-                  )}
-                  // right={(props) => (
-                  //   <IconButton {...props} icon="dots-vertical" onPress={() => {}} />
-                  // )}
+            <Flex key={item.id} flexDirection="row" style={styles.Card}>
+              <View>
+                <Avatar.Image
+                  size={40}
+                  source={require("../components/comman/images.png")}
                 />
-
-                <Card.Actions>
-                  <Button>Update</Button>
-                  <Button>Delete</Button>
-                </Card.Actions>
-              </Card>
-            </>
+              </View>
+              <Box>
+                <Text variant="titleMedium">{item.name}</Text>
+                <Text variant="bodySmall">{item.email} </Text>
+                <Text variant="bodySmall">{item.phone}</Text>
+              </Box>
+              <View
+                style={{
+                  position: "absolute",
+                  right: 0,
+                  top: 0,
+                  height: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  backgroundColor: "#fff",
+                }}
+              >
+                <Button>Update</Button>
+                <Button>Delete</Button>
+              </View>
+            </Flex>
           );
         })}
       </ScrollView>
@@ -90,14 +89,32 @@ export const AllUsers = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10, // Remove quotes and "px"
-    marginLeft: 10, // Remove quotes and "px"
+    padding: 5, // Remove quotes and "px"
+    margin: 0, // Remove quotes and "px"
+    width: "100%",
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
-    paddingTop: "100px",
-    marginBottom: 15,
+    paddingTop: "60px",
+    width: "100%",
+    marginBottom: 10,
     justifyContent: "space-between",
+  },
+  Card: {
+    backgroundColor: "#fff",
+    borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor: "white",
+    padding: 10,
+    marginBottom: 5,
+    overflow: "hidden",
+    display: "flex",
+    flexDirection: "row",
+    gap: 8,
+    borderColor: "#ccc",
+    justifyContent: "start",
+    alignItems: "center",
+    position: "relative",
   },
 });

@@ -3,7 +3,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AppHeader from "../header";
 import AppFooter from "../footer";
-import { StyleSheet } from "react-native";
 import AppBody from "../body";
 import Task from "../project";
 import { UserDetails } from "../UserDetails";
@@ -13,8 +12,17 @@ import AddProjectForm from "../forms/addProject";
 import AttendancePage from "../attendance";
 import { Leaves } from "../Leaves";
 import { EventHoliday } from "../EventHoliday";
+import { StyleSheet, View } from "react-native";
 
 const Stack = createNativeStackNavigator();
+
+const Layout = ({ children }) => (
+  <View style={styles.container}>
+    <AppHeader />
+    {children}
+    <AppFooter />
+  </View>
+);
 
 export default function MainLayout() {
   const token = localStorage.getItem("token");
@@ -22,58 +30,42 @@ export default function MainLayout() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={token ? "body" : "login"}
+        initialRouteName={token ? "allusers" : "login"}
         screenOptions={{
-          headerShown: false, // Hide the header
+          headerShown: false,
         }}
-        style={styles.container}
       >
         <Stack.Screen
-          name="body"
-          options={{
-            headerLeft: () => null, // Remove the back arrow button
-          }}
-        >
-          {() => (
-            <>
-              <AppHeader />
+          name="home"
+          component={() => (
+            <Layout>
+              {/* <Sidebar /> */}
               <AppBody />
-              <AppFooter />
-            </>
+            </Layout>
           )}
-        </Stack.Screen>
+        />
         <Stack.Screen
           name="project"
-          options={{
-            headerLeft: () => null, // Remove the back arrow button
-          }}
           component={() => (
-            <>
-              <AppHeader />
+            <Layout>
               <Task />
-              <AppFooter />
-            </>
+            </Layout>
           )}
         />
         <Stack.Screen
           name="allusers"
           component={() => (
-            <>
-              <AppHeader />
+            <Layout>
               <AllUsers />
-              <AppFooter />
-            </>
+            </Layout>
           )}
         />
-
         <Stack.Screen
           name="leaves"
           component={() => (
-            <>
-              <AppHeader />
+            <Layout>
               <Leaves />
-              <AppFooter />
-            </>
+            </Layout>
           )}
         />
 
@@ -90,37 +82,25 @@ export default function MainLayout() {
         <Stack.Screen
           name="userDetails"
           component={() => (
-            <>
-              <AppHeader />
+            <Layout>
               <UserDetails />
-              <AppFooter />
-            </>
+            </Layout>
           )}
         />
         <Stack.Screen
           name="addproject"
-          options={{
-            headerLeft: () => null, // Remove the back arrow button
-          }}
           component={() => (
-            <>
-              <AppHeader />
+            <Layout>
               <AddProjectForm />
-              <AppFooter />
-            </>
+            </Layout>
           )}
         />
         <Stack.Screen
           name="attendance"
-          options={{
-            headerLeft: () => null, // Remove the back arrow button
-          }}
           component={() => (
-            <>
-              <AppHeader />
+            <Layout>
               <AttendancePage />
-              <AppFooter />
-            </>
+            </Layout>
           )}
         />
         <Stack.Screen

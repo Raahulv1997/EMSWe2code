@@ -1,7 +1,7 @@
 import { Flex } from "@react-native-material/core";
 
-import ProductBox from "./product_box";
-import TaskList from "./task_list";
+import MyDrawer from "./comman/sidebar";
+import TaskList from "./taskList";
 
 export default function AppBody() {
   return (
@@ -20,12 +20,6 @@ export default function AppBody() {
       }}
     >
       <TaskList />
-      <ProductBox qty={1} />
-      <ProductBox />
-      <ProductBox qty={5} />
-      <ProductBox qty={2} />
-      <ProductBox />
-      <ProductBox />
     </Flex>
   );
 }

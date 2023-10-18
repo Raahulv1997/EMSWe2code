@@ -24,41 +24,39 @@ const AppHeader = () => {
   };
 
   return (
-    <View>
-      <AppBar
-        style={styles.container}
-        title="App Header"
-        leading={(props) => (
+    <AppBar
+      style={styles.container}
+      title="App Header"
+      leading={(props) => (
+        <IconButton
+          icon={(props) => <Icon name="menu" {...props} />}
+          {...props}
+          onPress={onToggleDrawer}
+        />
+      )}
+      trailing={(props) =>
+        loggedIn ? (
           <IconButton
-            icon={(props) => <Icon name="menu" {...props} />}
+            style={{ backgroundColor: "white" }}
+            icon={"logout"}
+            onPress={() => {
+              localStorage.clear();
+              navigate.navigate("login");
+            }}
             {...props}
-            onPress={onToggleDrawer}
           />
-        )}
-        trailing={(props) =>
-          loggedIn ? (
-            <IconButton
-              style={{ backgroundColor: "white" }}
-              icon={"logout"}
-              onPress={() => {
-                localStorage.clear();
-                navigate.navigate("login");
-              }}
-              {...props}
-            />
-          ) : (
-            <Button
-              variant="text"
-              title="Login"
-              compact
-              style={{ marginEnd: 4 }}
-              onPress={() => navigate.navigate("login")}
-              {...props}
-            />
-          )
-        }
-      />
-    </View>
+        ) : (
+          <Button
+            variant="text"
+            title="Login"
+            compact
+            style={{ marginEnd: 4 }}
+            onPress={() => navigate.navigate("login")}
+            {...props}
+          />
+        )
+      }
+    />
   );
 };
 

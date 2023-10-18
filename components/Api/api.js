@@ -180,3 +180,46 @@ export const deleteUser = async (id) => {
   });
   return response.data;
 };
+
+export const GetLeaveListByAdmin = async () => {
+  const response = await axios.get(
+    `${API_URL}admin/leaves`,
+
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Token}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+export const LeaveStatusUpdateByAdmin = async (id, status) => {
+  const response = await axios.post(
+    `${API_URL}admin/leaves/update/${id}?status=${status}`,
+    {},
+
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Token}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+export const GetHolidayListByAdmin = async () => {
+  const response = await axios.get(
+    `${API_URL}admin/holiday`,
+
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Token}`,
+      },
+    }
+  );
+  return response.data;
+};

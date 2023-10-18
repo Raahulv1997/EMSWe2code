@@ -31,6 +31,11 @@ export default function AppFooter() {
           leaves
         </Octicons>
       </TouchableOpacity>{" "}
+      <TouchableOpacity onPress={() => navigate.navigate("event")}>
+        <Octicons name="leaves" size={24} color="white">
+          Event
+        </Octicons>
+      </TouchableOpacity>{" "}
     </AppBar>
   );
 }

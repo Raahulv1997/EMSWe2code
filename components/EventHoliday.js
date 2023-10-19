@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
-import { Button, PaperProvider, Text } from "react-native-paper";
-import {
-  GetAllUserList,
-  GetHolidayListByAdmin,
-  GetLeaveListByAdmin,
-} from "./Api/api";
+import { PaperProvider, Text } from "react-native-paper";
+import { GetHolidayListByAdmin } from "./Api/api";
 import EventBox from "./comman/eventBox";
 import AddEventForm from "./forms/AddEventForm";
 
 export const EventHoliday = () => {
+  const IntialFormState = {
+    id: "",
+    start_date: "",
+    end_date: "",
+    event: "",
+    event_type: "",
+  };
   const [HolidayList, setHolidayList] = useState([]);
   const [apicall, setapicall] = useState(false);
 
@@ -53,7 +56,7 @@ export const EventHoliday = () => {
           {(HolidayList || []).map((item) => {
             return (
               <>
-                <EventBox data={item} />
+                <EventBox data={item} setapicall={setapicall} />
               </>
             );
           })}
@@ -62,6 +65,9 @@ export const EventHoliday = () => {
       <AddEventForm
         openEventForm={openEventForm}
         setOpenEventForm={setOpenEventForm}
+        setapicall={setapicall}
+        data={IntialFormState}
+        type={"create"}
       />
     </PaperProvider>
   );

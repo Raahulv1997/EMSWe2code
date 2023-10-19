@@ -25,9 +25,7 @@ function AddUpdateTask() {
     setData({ ...data, [inputName]: inputValue });
   };
 
-  const handleSubmit = () => {
-    console.log("datea-----" + JSON.stringify(data));
-  };
+  const handleSubmit = () => {};
   return (
     <View style={styles.row}>
       <View style={styles.cell}>

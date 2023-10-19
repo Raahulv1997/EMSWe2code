@@ -18,6 +18,7 @@ export const Leaves = () => {
   useEffect(() => {
     GetLeaveListFuntion();
   }, [apicall]);
+
   return (
     <PaperProvider>
       <View style={styles.container}>

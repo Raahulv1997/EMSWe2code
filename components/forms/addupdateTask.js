@@ -60,7 +60,6 @@ function AddUpdateTask({ id, setApiCall }) {
 
   /*form Submit Function*/
   const handleSubmit = async () => {
-    console.log(state);
     if (validate()) {
       try {
         let res = await AddTaskApi(state);

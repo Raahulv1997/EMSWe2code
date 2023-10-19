@@ -7,6 +7,7 @@ import {
   AntDesign,
   Feather,
   MaterialCommunityIcons,
+  FontAwesome5,
   MaterialIcons,
 } from "@expo/vector-icons";
 import { Text } from "react-native-paper";
@@ -57,6 +58,14 @@ export default function AppFooter() {
       >
         <MaterialIcons name="leave-bags-at-home" size={28} color="white" />
         <Text style={styles.Text}>Leaves</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.touch}
+        onPress={() => navigate.navigate("event")}
+      >
+        <FontAwesome5 name="user-alt-slash" size={23} color="white" />
+        <Text style={styles.Text}>Holidays</Text>
       </TouchableOpacity>
     </Flex>
   );

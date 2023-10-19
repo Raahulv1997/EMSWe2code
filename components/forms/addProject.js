@@ -61,7 +61,6 @@ const AddProjectForm = () => {
 
   /*Function to add peoject */
   const handleAddProject = async () => {
-    console.log(state);
     if (validate()) {
       try {
         let res = await AddProjectApi(state);

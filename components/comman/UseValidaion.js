@@ -9,6 +9,8 @@ function useValidation(initialState, validators) {
       ...prevData,
       [key]: value,
     }));
+
+    setErrors({});
   };
 
   const DescriptionChange = (event, editor) => {

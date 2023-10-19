@@ -185,3 +185,59 @@ export const GetHolidayListByAdmin = async () => {
   );
   return response.data;
 };
+
+export const CreateEventByAdmin = async (props) => {
+  const formData = new FormData();
+  formData.append("start_date", props.start_date);
+  formData.append("end_date", props.end_date);
+  formData.append("event", props.event);
+  formData.append("event_type", props.event_type);
+
+  const response = await axios.post(
+    `${API_URL}admin/holiday/store`,
+    formData,
+
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Token}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+export const UpdateEventByAdmin = async (props) => {
+  const formData = new FormData();
+  formData.append("start_date", props.start_date);
+  formData.append("end_date", props.end_date);
+  formData.append("event", props.event);
+  formData.append("event_type", props.event_type);
+
+  const response = await axios.post(
+    `${API_URL}admin/holiday/update/${props.id}`,
+    formData,
+
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Token}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+export const DeleteEventByAdmin = async (id) => {
+  const response = await axios.delete(
+    `${API_URL}admin/holiday/destroy/${id}`,
+
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Token}`,
+      },
+    }
+  );
+  return response.data;
+};

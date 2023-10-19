@@ -10,11 +10,10 @@ export const AllUsers = () => {
 
   const GetUserListFuntion = async () => {
     const response = await GetAllUserList();
-    console.log("user list--" + JSON.stringify(response.users));
+
     setGetUserList(response.users || []);
 
     if (getUserlist) {
-      console.log("--------" + response.users);
       setInstitutionDetails(response.users.institution_id);
     } else {
       setInstitutionDetails({});

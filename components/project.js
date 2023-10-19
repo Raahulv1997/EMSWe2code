@@ -11,7 +11,7 @@ const Project = () => {
   const GetProjectList = async () => {
     try {
       let projectRes = await GetProjectsApi();
-      // console.log("data--" + JSON.stringify(projectRes.projects));
+
       setProjectList(projectRes.projects);
     } catch (err) {
       console.log(err);

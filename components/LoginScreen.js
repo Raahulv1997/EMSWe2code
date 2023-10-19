@@ -25,7 +25,7 @@ const LoginScreen = () => {
   const handleLogin = async () => {
     if (validate()) {
       const response = await userLogin(state.phone, state.password);
-      console.log("kkk" + JSON.stringify(response));
+
       if (response.message === "Login Success") {
         localStorage.setItem("token", response.data.token);
         setState({ phone: "", password: "" });

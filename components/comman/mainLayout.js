@@ -117,8 +117,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "#fff",
-    alignItems: "center",
+    // backgroundColor: "#fff",
+    // alignItems: "center",
     justifyContent: "space-between",
     height: "100vh",
     overflow: "hidden",

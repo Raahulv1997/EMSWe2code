@@ -1,35 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { TouchableOpacity, StyleSheet, Text, ScrollView } from "react-native";
-import { Avatar, DataTable, TextInput } from "react-native-paper";
-import AddUpdateTask from "./forms/addupdateTask";
+import { Avatar, DataTable } from "react-native-paper";
+
 import { DeleteTaskApi } from "./Api/api";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Toast from "react-native-toast-message";
 import { useNavigation } from "@react-navigation/native";
-const TaskList = ({ taskData, id, setApiCall }) => {
+
+import TaskDeleteAlert from "./comman/TaskDeleteAlert";
+const TaskList = ({ taskData, setApiCall }) => {
+  const [isDeleteAlert, setDeleteAlert] = useState(false);
+  const [TaskID, setTaskID] = useState("");
+  const [TaskName, setTaskName] = useState("");
+
   let navigate = useNavigation();
   /*Function to delete task */
-  const onDelete = async (task_id) => {
-    try {
-      let res = await DeleteTaskApi(task_id);
-      if (res.message === "Deleted successfully") {
-        setApiCall(true);
-        Toast.show({
-          type: "success",
-          position: "top",
-          text1: "Task deleted successfully",
-        });
-      } else {
-        Toast.show({
-          type: "error",
-          position: "top",
-          text1: "Something went wrong",
-        });
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   function getInitials(name) {
     const words = name.split(" ");
@@ -39,6 +24,7 @@ const TaskList = ({ taskData, id, setApiCall }) => {
     }
     return initials;
   }
+  var TaskUpdateValue = "update";
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <DataTable>
@@ -51,78 +37,108 @@ const TaskList = ({ taskData, id, setApiCall }) => {
           <DataTable.Title>Action</DataTable.Title>
         </DataTable.Header>
 
-        {(taskData || []).map((task, index) => (
-          <DataTable.Row key={index}>
-            <DataTable.Cell>{task.task_name}</DataTable.Cell>
+        {(taskData || []).map((task, index) => {
+          const IntialFormState = {
+            id: task.id,
+            project_id: task.project_id,
+            task_name: task.task_name,
+            description: task.description,
+            assign: task.assign ? task.assign.id : "",
+            due_date: task.due_date,
+            status: task.status,
+            priority: task.priority,
+          };
 
-            <DataTable.Cell>
-              <Text
-                style={{
-                  fontSize: 12,
-                  color:
-                    task.priority === "medium"
-                      ? "#dd05f5"
-                      : task.priority === "high"
-                      ? "#f70c0c"
-                      : "#057ffa",
-                  fontWeight: "bold",
-                  paddingVertical: 2,
-                  paddingHorizontal: 5,
-                  borderRadius: 40,
-                  borderWidth: 0.25,
-                  borderColor:
-                    task.priority === "medium"
-                      ? "#dd05f5"
-                      : task.priority === "high"
-                      ? "#f70c0c"
-                      : "#057ffa",
-                }}
-              >
-                {task.priority}
-              </Text>
-            </DataTable.Cell>
-            <DataTable.Cell>
-              <Avatar.Text
-                size={24}
-                label={task.assign ? getInitials(task.assign.name) : "NA"}
-              />
-            </DataTable.Cell>
-            <DataTable.Cell>
-              <Text
-                style={{
-                  backgroundColor:
-                    task.status === "pending" ? "#34b4eb" : "green",
-                  borderRadius: 60,
-                  paddingTop: "4px",
-                  paddingBottom: "8px",
-                  color: "white",
-                  padding: "5px",
-                  fontSize: "12px",
-                }}
-              >
-                {task.status}
-              </Text>
-            </DataTable.Cell>
-            <DataTable.Cell>
-              <Text style={{ paddingLeft: 20 }}>
-                <TouchableOpacity
-                  onPress={() => {
-                    navigate.navigate("addtask");
-                  }}
-                >
-                  <Icon name="edit" size={20} color="green" />
-                </TouchableOpacity>
-              </Text>
-              <Text style={{ marginLeft: "5px" }}>
-                <TouchableOpacity onPress={() => onDelete(task.id)}>
-                  <Icon name="trash" size={20} color="red" />
-                </TouchableOpacity>
-              </Text>
-            </DataTable.Cell>
-          </DataTable.Row>
-        ))}
+          return (
+            <React.Fragment key={index}>
+              <DataTable.Row key={index}>
+                <DataTable.Cell>{task.task_name}</DataTable.Cell>
+
+                <DataTable.Cell>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      color:
+                        task.priority === "medium"
+                          ? "#dd05f5"
+                          : task.priority === "high"
+                          ? "#f70c0c"
+                          : "#057ffa",
+                      fontWeight: "bold",
+                      paddingVertical: 2,
+                      paddingHorizontal: 5,
+                      borderRadius: 40,
+                      borderWidth: 0.25,
+                      borderColor:
+                        task.priority === "medium"
+                          ? "#dd05f5"
+                          : task.priority === "high"
+                          ? "#f70c0c"
+                          : "#057ffa",
+                    }}
+                  >
+                    {task.priority}
+                  </Text>
+                </DataTable.Cell>
+                <DataTable.Cell>
+                  <Avatar.Text
+                    size={24}
+                    label={task.assign ? getInitials(task.assign.name) : "NA"}
+                  />
+                </DataTable.Cell>
+                <DataTable.Cell>
+                  <Text
+                    style={{
+                      backgroundColor:
+                        task.status === "pending" ? "#34b4eb" : "green",
+                      borderRadius: 60,
+                      paddingTop: "4px",
+                      paddingBottom: "8px",
+                      color: "white",
+                      padding: "5px",
+                      fontSize: "12px",
+                    }}
+                  >
+                    {task.status}
+                  </Text>
+                </DataTable.Cell>
+                <DataTable.Cell>
+                  <Text style={{ paddingLeft: 20 }}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigate.navigate("addtask", {
+                          IntialFormState,
+                          TaskUpdateValue,
+                        });
+                      }}
+                    >
+                      <Icon name="edit" size={20} color="green" />
+                    </TouchableOpacity>
+                  </Text>
+                  <Text style={{ marginLeft: "5px" }}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setDeleteAlert(true);
+                        setTaskID(task.id);
+                        setTaskName(task.task_name);
+                      }}
+                    >
+                      <Icon name="trash" size={20} color="red" />
+                    </TouchableOpacity>
+                  </Text>
+                </DataTable.Cell>
+              </DataTable.Row>
+            </React.Fragment>
+          );
+        })}
       </DataTable>
-      <AddUpdateTask id={id} setApiCall={setApiCall} />
+      <TaskDeleteAlert
+        isDeleteAlert={isDeleteAlert}
+        setDeleteAlert={setDeleteAlert}
+        id={TaskID}
+        userName={TaskName}
+        setapicall={setApiCall}
+      />
     </ScrollView>
   );
 };

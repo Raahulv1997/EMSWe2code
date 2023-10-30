@@ -5,12 +5,7 @@ import { Button, RadioButton, Text, TextInput } from "react-native-paper";
 import { Picker } from "react-native";
 import useValidation from "../comman/UseValidaion";
 import { useNavigation } from "@react-navigation/native";
-import {
-  AddTaskApi,
-  CreateUserByAdmin,
-  GetAllUserList,
-  UpdateUserByAdmin,
-} from "../Api/api";
+import { AddTaskApi, GetAllUserList, UpdateTaskApi } from "../Api/api";
 import { useRoute } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
 export const AddTask = () => {
@@ -18,10 +13,11 @@ export const AddTask = () => {
   const [getUserlist, setGetUserList] = useState([]);
 
   const route = useRoute();
-
+  TaskUpdateValue;
   const taskId = route.params?.taskId || "";
-  // const projectData = route.params?.initialFormState || {};
-
+  const TaskUpdateValue = route.params?.TaskUpdateValue || "";
+  const TaskData = route.params?.IntialFormState || {};
+  console.log("TaskData--" + JSON.stringify(TaskUpdateValue));
   const IntialFormState = {
     project_id: taskId,
     task_name: "",
@@ -79,11 +75,11 @@ export const AddTask = () => {
   const { state, onInputChange, setState, setErrors, errors, validate } =
     useValidation(IntialFormState, validators);
 
-  //   useEffect(() => {
-  //     if (userData.id !== null) {
-  //       setState(userData);
-  //     }
-  //   }, []);
+  useEffect(() => {
+    if (TaskData.id !== null) {
+      setState(TaskData);
+    }
+  }, []);
   const GetUserListFuntion = async () => {
     const response = await GetAllUserList();
     setGetUserList(response.users || []);
@@ -115,26 +111,26 @@ export const AddTask = () => {
     }
   };
 
-  //   const onUpdateUserClick = async () => {
-  //     if (validate()) {
-  //       const response = await UpdateUserByAdmin(state);
+  const onUpdateTaskClick = async () => {
+    if (validate()) {
+      const response = await UpdateTaskApi(state);
 
-  //       if (response.message === "User updated.") {
-  //         Toast.show({
-  //           type: "success", // success, error, info, or any custom type
-  //           position: "top", // top, center, or bottom
-  //           text1: "Employee Update",
-  //           text2: "Employee Updated successfully",
-  //           visibilityTime: 2000, // Duration in milliseconds
-  //           autoHide: true,
-  //           topOffset: 30, // Adjust the distance from the top
-  //         });
-  //         setTimeout(() => {
-  //           navigate.navigate("allusers");
-  //         }, 2000);
-  //       }
-  //     }
-  //   };
+      if (response.message === "Task Updated") {
+        Toast.show({
+          type: "success", // success, error, info, or any custom type
+          position: "top", // top, center, or bottom
+          text1: "Task Update",
+          text2: "Task Updated successfully",
+          visibilityTime: 1000, // Duration in milliseconds
+          autoHide: true,
+          topOffset: 30, // Adjust the distance from the top
+        });
+        setTimeout(() => {
+          navigate.navigate("project");
+        }, 1000);
+      }
+    }
+  };
 
   return (
     <View style={styles.ParentDiv}>
@@ -146,7 +142,9 @@ export const AddTask = () => {
           }}
         >
           {" "}
-          <Text variant="headlineMedium">Create Task</Text>
+          <Text variant="headlineMedium">
+            {TaskUpdateValue === "update" ? "Update Task" : "Create Task"}{" "}
+          </Text>
         </View>
 
         <View>
@@ -242,6 +240,22 @@ export const AddTask = () => {
             </View>
           )}
         </View>
+        {TaskUpdateValue === "update" ? (
+          <View>
+            <Picker
+              style={styles.picker}
+              selectedValue={state.status}
+              name="priority "
+              value={state.status}
+              onValueChange={(value) => onInputChange("status", value)}
+            >
+              <Picker.Item value="" label="Status" />
+              <Picker.Item value="complete" label="Complete" />
+              <Picker.Item value="pending" label="Pending" />
+              <Picker.Item value="working" label="Working" />
+            </Picker>
+          </View>
+        ) : null}
 
         <View>
           {" "}
@@ -271,16 +285,29 @@ export const AddTask = () => {
             marginTop: "10px",
           }}
         >
-          <Button
-            mode="contained"
-            textColor="white"
-            style={{
-              width: "150px",
-            }}
-            onPress={OnCreateTaskClick}
-          >
-            Create Task
-          </Button>
+          {TaskUpdateValue === "update" ? (
+            <Button
+              mode="contained"
+              textColor="white"
+              style={{
+                width: "150px",
+              }}
+              onPress={onUpdateTaskClick}
+            >
+              Update Task
+            </Button>
+          ) : (
+            <Button
+              mode="contained"
+              textColor="white"
+              style={{
+                width: "150px",
+              }}
+              onPress={OnCreateTaskClick}
+            >
+              Create Task
+            </Button>
+          )}
 
           <Button
             mode="outlined"

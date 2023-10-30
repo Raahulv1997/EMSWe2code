@@ -108,11 +108,7 @@ export default function ProjectBox({ projectData, setapicall, apicall }) {
           </View>
           {showtaskList === true ? (
             <View style={styles.accordionBody}>
-              <TaskList
-                taskData={taskList}
-                id={projectData.id}
-                setApiCall={setapicall}
-              />
+              <TaskList taskData={taskList} setApiCall={setapicall} />
             </View>
           ) : null}
         </View>

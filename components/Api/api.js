@@ -63,6 +63,7 @@ export const AddTaskApi = async (data) => {
 };
 /*Function to Update Task */
 export const UpdateTaskApi = async (data) => {
+  Token = localStorage.getItem("token");
   const response = await axios.put(`${API_URL}task/update`, data, {
     headers: {
       "Content-Type": "application/json",
@@ -73,10 +74,11 @@ export const UpdateTaskApi = async (data) => {
 };
 /*Function to Update Task */
 export const DeleteTaskApi = async (id) => {
-  console.log(id);
+  Token = localStorage.getItem("token");
+
   const response = await axios.post(
     `${API_URL}task/delete/${id}`,
-    { id: id },
+    {},
     {
       headers: {
         "Content-Type": "application/json",

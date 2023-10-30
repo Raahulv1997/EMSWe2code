@@ -25,7 +25,7 @@ const UserAttendenceHistory = () => {
   const GetUserhistory = async () => {
     try {
       let res = await GeUserAttendance(userId);
-      // console.log(res);
+      console.log(res);
       setCount(res.count);
       setAttendanceList(res.attendance.data);
     } catch (err) {
@@ -38,6 +38,7 @@ const UserAttendenceHistory = () => {
       setApiCall(false);
     }
   }, [apiCall]);
+  console.log(apiCall);
   return (
     <Flex style={styles.scrollcontainer}>
       <View style={styles.container}>

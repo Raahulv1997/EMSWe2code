@@ -3,7 +3,6 @@ import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 import { ChangAttendanceStatus } from "../Api/api";
 import moment from "moment";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import Toast from "react-native-toast-message";
 const AttendenceStatus = ({ setApiCall }) => {
   let date = moment(new Date()).format("YYYY-MM-DD");
   const userId = useSelector((state) => state.userId);
@@ -12,15 +11,11 @@ const AttendenceStatus = ({ setApiCall }) => {
     try {
       let res = await ChangAttendanceStatus(userId, date, status);
       if (res.success === true) {
-        Toast.show({
-          type: "success", // success, error, info, or any custom type
-          position: "top", // top, center, or bottom
-          text1: "Attendence Marked successfully",
-
-          visibilityTime: 3000, // Duration in milliseconds
-          autoHide: true,
-          topOffset: 30, // Adjust the distance from the top
-        });
+        // Toast.show({
+        //   type: "success",
+        //   position: "top",
+        //   text1: "Attendence Marked successfully",
+        // });
         setApiCall(true);
       }
     } catch (err) {

@@ -16,7 +16,14 @@ import store from "../Redux/store";
 import { Leaves } from "../Leaves";
 import { EventHoliday } from "../EventHoliday";
 import { StyleSheet, View } from "react-native";
-
+import { AddUserForm } from "../forms/AddUserForm";
+import { UserSignUpForm } from "../forms/UserSignUpForm";
+import { UserDashboard } from "../UserDashboard";
+import { UserLeave } from "../UserLeave";
+import { AddLeaveForm } from "../forms/AddLeaveForm";
+import Toast from "react-native-toast-message";
+import AdminDashboard from "../AdminDashboard";
+import { AddTask } from "../forms/AddTask";
 const Stack = createNativeStackNavigator();
 
 const Layout = ({ children }) => (
@@ -29,12 +36,18 @@ const Layout = ({ children }) => (
 
 export default function MainLayout() {
   const token = localStorage.getItem("token");
-
+  const type = localStorage.getItem("type");
   return (
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName={token ? "allusers" : "login"}
+          initialRouteName={
+            token && type === "admin"
+              ? "AdminDashboard"
+              : token && type === "employee"
+              ? "userdashboard"
+              : "login"
+          }
           screenOptions={{
             headerShown: false,
           }}
@@ -56,11 +69,38 @@ export default function MainLayout() {
               </Layout>
             )}
           />
+
+          <Stack.Screen
+            name="AdminDashboard"
+            component={() => (
+              <Layout>
+                <AdminDashboard />
+              </Layout>
+            )}
+          />
           <Stack.Screen
             name="allusers"
             component={() => (
               <Layout>
                 <AllUsers />
+              </Layout>
+            )}
+          />
+
+          <Stack.Screen
+            name="userdashboard"
+            component={() => (
+              <Layout>
+                <UserDashboard />
+              </Layout>
+            )}
+          />
+
+          <Stack.Screen
+            name="userLeave"
+            component={() => (
+              <Layout>
+                <UserLeave />
               </Layout>
             )}
           />
@@ -99,6 +139,32 @@ export default function MainLayout() {
               </Layout>
             )}
           />
+
+          <Stack.Screen
+            name="addtask"
+            component={() => (
+              <Layout>
+                <AddTask />
+              </Layout>
+            )}
+          />
+          <Stack.Screen
+            name="adduserform"
+            component={() => (
+              <Layout>
+                <AddUserForm />
+              </Layout>
+            )}
+          />
+
+          <Stack.Screen
+            name="addleaveform"
+            component={() => (
+              <Layout>
+                <AddLeaveForm />
+              </Layout>
+            )}
+          />
           <Stack.Screen
             name="attendance"
             component={() => (
@@ -120,7 +186,14 @@ export default function MainLayout() {
             component={LoginScreen}
             options={{ headerShown: false }}
           />
+
+          <Stack.Screen
+            name="signup"
+            component={UserSignUpForm}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
+        <Toast ref={(ref) => Toast.setRef(ref)} />
       </NavigationContainer>
     </Provider>
   );

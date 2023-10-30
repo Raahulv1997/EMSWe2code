@@ -4,43 +4,85 @@ import { GetProjectsApi } from "./Api/api";
 import { Flex } from "@react-native-material/core";
 import ProjectBox from "./comman/projectBox";
 import { useNavigation } from "@react-navigation/native";
+import { PaperProvider } from "react-native-paper";
 const Project = () => {
+  let Token = localStorage.getItem("token");
+  var head = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${Token}`,
+    },
+  };
   const [projectList, setProjectList] = useState([]);
+  const [apicall, setapicall] = useState(false);
   let navigate = useNavigation();
+
+  let initialFormState = {
+    project_name: "",
+    description: "",
+    team_leader_id: "",
+    start_date: "",
+    end_date: "",
+    status: "progress",
+  };
   /*Function to get the Project list */
   const GetProjectList = async () => {
     try {
-      let projectRes = await GetProjectsApi();
+      let projectRes = await GetProjectsApi(head);
 
       setProjectList(projectRes.projects);
+      setapicall(false);
     } catch (err) {
       console.log(err);
     }
   };
   /*Render function */
+
   useEffect(() => {
     GetProjectList();
-  }, []);
+  }, [apicall]);
 
+  useEffect(
+    React.useCallback(() => {
+      const unsubscribe = navigate.addListener("focus", () => {
+        GetProjectList();
+      });
+
+      return unsubscribe;
+    }, [navigate])
+  );
+  let value = "add";
   return (
-    <Flex style={styles.scrollContainer}>
-      <View style={styles.contentBody}>
-        <View style={styles.container}>
-          <View style={styles.textHead}>
-            <Text style={styles.heading}>Project Management</Text>
-            <TouchableOpacity
-              style={styles.addButton}
-              onPress={() => navigate.navigate("addproject")}
-            >
-              <Text style={styles.buttonText}>Add Project</Text>
-            </TouchableOpacity>
+    <PaperProvider>
+      {" "}
+      <Flex style={styles.scrollContainer}>
+        <View style={styles.contentBody}>
+          <View style={styles.container}>
+            <View style={styles.textHead}>
+              <Text style={styles.heading}>Project Management</Text>
+              <TouchableOpacity
+                style={styles.addButton}
+                onPress={() =>
+                  navigate.navigate("addproject", { value, initialFormState })
+                }
+              >
+                <Text style={styles.buttonText}>Add Project</Text>
+              </TouchableOpacity>
+            </View>
+            {(projectList || []).map((item, index) => {
+              return (
+                <ProjectBox
+                  projectData={item}
+                  key={index}
+                  setapicall={setapicall}
+                  apicall={apicall}
+                />
+              );
+            })}
           </View>
-          {(projectList || []).map((item, index) => {
-            return <ProjectBox projectData={item} key={index} />;
-          })}
         </View>
-      </View>
-    </Flex>
+      </Flex>
+    </PaperProvider>
   );
 };
 

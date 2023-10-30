@@ -6,7 +6,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import UserImage from "./image";
 const EmployeeBox = ({ employee }) => {
   let navigate = useNavigation();
-  let Attendance = employee.attendance[0] || "";
+  let Attendance = employee.attendance || "";
   const targetTime = moment().set({
     hour: 9,
     minute: 45,

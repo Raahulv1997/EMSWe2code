@@ -6,6 +6,7 @@ const initialState = {
   userGender: null,
   userImage: null,
   userName: null,
+  token: null,
 };
 
 // Define the reducer function
@@ -18,6 +19,11 @@ const rootReducer = (state = initialState, action) => {
         userGender: action.payload.userGender,
         userImage: action.payload.userImage,
         userName: action.payload.userName,
+      };
+    case "UPDATE_TOKEN":
+      return {
+        ...state,
+        token: action.payload.token,
       };
     default:
       return state;

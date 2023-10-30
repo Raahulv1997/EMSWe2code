@@ -2,6 +2,7 @@ import React from "react";
 import { Dialog, Portal } from "react-native-paper";
 import { Text, TouchableOpacity } from "react-native";
 import { LeaveStatusUpdateByAdmin } from "../Api/api";
+import Toast from "react-native-toast-message";
 const LeaveApprovalAlert = ({
   statusUpdateAlert,
   setStatusUpdateAlert,
@@ -14,9 +15,20 @@ const LeaveApprovalAlert = ({
   const OnClickLeaveApproval = async () => {
     const response = await LeaveStatusUpdateByAdmin(id, statusValue);
 
-    setapicall(true);
-    setStatusUpdateAlert(false);
-    setStatusValue("");
+    Toast.show({
+      type: "success", // success, error, info, or any custom type
+      position: "top", // top, center, or bottom
+      text1: "Leave Approval",
+
+      visibilityTime: 1000, // Duration in milliseconds
+      autoHide: true,
+      topOffset: 30, // Adjust the distance from the top
+    });
+    setTimeout(() => {
+      setapicall(true);
+      setStatusUpdateAlert(false);
+      setStatusValue("");
+    }, 1000);
   };
 
   const HideStatusAlertFunction = () => {

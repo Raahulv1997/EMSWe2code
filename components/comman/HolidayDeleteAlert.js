@@ -1,7 +1,8 @@
 import React from "react";
 import { Dialog, Portal } from "react-native-paper";
 import { Text, TouchableOpacity } from "react-native";
-import { DeleteEventByAdmin, LeaveStatusUpdateByAdmin } from "../Api/api";
+import { DeleteEventByAdmin } from "../Api/api";
+import Toast from "react-native-toast-message";
 const HolidayDeleteAlert = ({
   openDeleteAlert,
   setOpenDeleteAlert,
@@ -11,9 +12,19 @@ const HolidayDeleteAlert = ({
 }) => {
   const OnClickDeleteEvent = async () => {
     const response = await DeleteEventByAdmin(id);
+    Toast.show({
+      type: "success", // success, error, info, or any custom type
+      position: "top", // top, center, or bottom
+      text1: "Event Deleted Successfully",
 
-    setapicall(true);
-    setOpenDeleteAlert(false);
+      visibilityTime: 1000, // Duration in milliseconds
+      autoHide: true,
+      topOffset: 30, // Adjust the distance from the top
+    });
+    setTimeout(() => {
+      setapicall(true);
+      setOpenDeleteAlert(false);
+    }, 1000);
   };
 
   const HideDeleteAlertFuntion = () => {

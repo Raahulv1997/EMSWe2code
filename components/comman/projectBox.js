@@ -3,15 +3,29 @@ import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import TaskList from "../taskList";
 import { GetTaskApi } from "../Api/api";
 import Icon from "react-native-vector-icons/FontAwesome";
-export default function ProjectBox({ projectData }) {
-  const [taskList, setTaskList] = useState([]);
-  const [taskId, setTaskId] = useState();
-  const [apiCall, setApiCall] = useState(false);
+import { useNavigation } from "@react-navigation/native";
+import ProjectDeleteAlert from "./ProjectDeleteAlert";
+import { Entypo } from "@expo/vector-icons";
+export default function ProjectBox({ projectData, setapicall, apicall }) {
+  let navigate = useNavigation();
 
+  const [taskList, setTaskList] = useState([]);
+  const [taskId, setTaskId] = useState(projectData.id);
+  const [showtaskList, setShowTaskList] = useState(false);
+  const [isDeleteAlert, setDeleteAlert] = useState(false);
+  //let Token = localStorage.getItem("token");
+  let Token = localStorage.getItem("token");
+  var head = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${Token}`,
+    },
+  };
   const GetTaskList = async () => {
     try {
-      let response = await GetTaskApi(taskId ? taskId : projectData.id);
+      let response = await GetTaskApi(taskId ? taskId : projectData.id, head);
       setTaskList(response.tasks);
+      setapicall(false);
     } catch (err) {
       console.log(err);
     }
@@ -19,8 +33,30 @@ export default function ProjectBox({ projectData }) {
 
   useEffect(() => {
     GetTaskList();
-    setApiCall(false);
-  }, [taskId, apiCall]);
+  }, [taskId, apicall]);
+
+  useEffect(
+    React.useCallback(() => {
+      const unsubscribe = navigate.addListener("focus", () => {
+        GetTaskList();
+      });
+
+      return unsubscribe;
+    }, [navigate])
+  );
+
+  let value = "update";
+  let initialFormState = {
+    id: projectData.id,
+    project_name: projectData.project_name,
+    description: projectData.description,
+    team_leader_id: projectData.team_leader_id
+      ? projectData.team_leader_id.id
+      : "",
+    start_date: projectData.start_date,
+    end_date: projectData.end_date,
+    status: projectData.status,
+  };
 
   return (
     <View>
@@ -28,9 +64,15 @@ export default function ProjectBox({ projectData }) {
         <View style={styles.accordionContainer}>
           <View style={styles.accordionItem}>
             <TouchableOpacity
-              style={[styles.accordionButton, styles.accordionHeader]}
+              // style={[styles.accordionButton, styles.accordionHeader]}
+              style={{ padding: "10px" }}
               onPress={() => {
                 setTaskId(projectData.id);
+                setShowTaskList(true);
+
+                if (showtaskList) {
+                  setShowTaskList(false);
+                }
               }}
             >
               <View style={styles.meAuto}>
@@ -40,22 +82,48 @@ export default function ProjectBox({ projectData }) {
                   Status:
                   <Text style={styles.statusBadge}>{projectData.status}</Text>
                 </Text>
-                <Text>
+
+                <TouchableOpacity
+                  onPress={() => {
+                    setTaskId(projectData.id);
+                    navigate.navigate("addtask", { taskId });
+                  }}
+                >
+                  <Entypo name="add-to-list" size={20} color="grey" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigate.navigate("addproject", { value, initialFormState })
+                  }
+                >
                   <Icon name="edit" size={20} color="gray" />
-                </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => setDeleteAlert(true)}>
+                  <Icon name="trash" size={20} color="gray" />
+                </TouchableOpacity>
                 {/* </View> */}
               </View>
             </TouchableOpacity>
           </View>
-          <View style={styles.accordionBody}>
-            <TaskList
-              taskData={taskList}
-              id={projectData.id}
-              setApiCall={setApiCall}
-            />
-          </View>
+          {showtaskList === true ? (
+            <View style={styles.accordionBody}>
+              <TaskList
+                taskData={taskList}
+                id={projectData.id}
+                setApiCall={setapicall}
+              />
+            </View>
+          ) : null}
         </View>
       </View>
+      <ProjectDeleteAlert
+        isDeleteAlert={isDeleteAlert}
+        setDeleteAlert={setDeleteAlert}
+        id={projectData.id}
+        userName={projectData.project_name}
+        setapicall={setapicall}
+      />
     </View>
   );
 }
@@ -102,7 +170,8 @@ const styles = StyleSheet.create({
   },
   meAuto: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
+
     // alignItems: "center",
   },
   headerInner: {

@@ -10,7 +10,7 @@ import {
 } from "react-native-paper";
 import { CreateEventByAdmin, UpdateEventByAdmin } from "../Api/api";
 import useValidation from "../comman/UseValidaion";
-
+import Toast from "react-native-toast-message";
 const AddEventForm = ({
   openEventForm,
   setOpenEventForm,
@@ -22,14 +22,6 @@ const AddEventForm = ({
     setOpenEventForm(false);
     setErrors({});
   };
-  console.log("type--" + type);
-  // const IntialFormState = {
-  //   id: data.id,
-  //   start_date: data.start_date,
-  //   end_date: data.end_date,
-  //   event: data.event,
-  //   event_type: data.event_type,
-  // };
 
   const IntialFormState = {
     id: "",
@@ -77,18 +69,27 @@ const AddEventForm = ({
   }, [data]);
   const onCreateEventClick = async () => {
     if (validate()) {
-      console.log("state---" + JSON.stringify(state));
-
       const response = await CreateEventByAdmin(state);
       if (response.success === true) {
-        hideModal();
-        setState({
-          start_date: "",
-          end_date: "",
-          event_type: "",
-          event: "",
+        Toast.show({
+          type: "success", // success, error, info, or any custom type
+          position: "top", // top, center, or bottom
+          text1: "Event Created",
+
+          visibilityTime: 1000, // Duration in milliseconds
+          autoHide: true,
+          topOffset: 30, // Adjust the distance from the top
         });
-        setapicall(true);
+        setTimeout(() => {
+          hideModal();
+          setState({
+            start_date: "",
+            end_date: "",
+            event_type: "",
+            event: "",
+          });
+          setapicall(true);
+        }, 1000);
       }
     }
   };
@@ -99,14 +100,25 @@ const AddEventForm = ({
 
       const response = await UpdateEventByAdmin(state);
       if (response.message === "Updated Successfully") {
-        hideModal();
-        setState({
-          start_date: "",
-          end_date: "",
-          event_type: "",
-          event: "",
+        Toast.show({
+          type: "success", // success, error, info, or any custom type
+          position: "top", // top, center, or bottom
+          text1: "Event Updated",
+
+          visibilityTime: 1000, // Duration in milliseconds
+          autoHide: true,
+          topOffset: 30, // Adjust the distance from the top
         });
-        setapicall(true);
+        setTimeout(() => {
+          hideModal();
+          setState({
+            start_date: "",
+            end_date: "",
+            event_type: "",
+            event: "",
+          });
+          setapicall(true);
+        }, 1000);
       }
     }
   };

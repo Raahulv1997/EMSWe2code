@@ -1,87 +1,104 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
-import { Avatar, Button, Card, Searchbar, Text } from "react-native-paper";
-import { GetAllUserList } from "./Api/api";
-import { Box, Flex } from "@react-native-material/core";
 
+import { View, StyleSheet, ScrollView } from "react-native";
+import { Button, PaperProvider, Searchbar, Text } from "react-native-paper";
+import { GetAllUserList } from "./Api/api";
+import { useRoute } from "@react-navigation/native";
+import UserBox from "./comman/UserBox";
+import { useNavigation } from "@react-navigation/native";
 export const AllUsers = () => {
+  let Token = localStorage.getItem("token");
+  var head = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${Token}`,
+    },
+  };
+
+  let navigate = useNavigation();
+  const route = useRoute();
+  const IntialFormState = {
+    name: "",
+    email: "",
+    phone: "",
+    institution_id: "",
+    password: "",
+    gender: "",
+    date_of_birth: "",
+  };
+  //   const userData = route.params?.value || {};
+
+  //   console.log(userData);
   const [getUserlist, setGetUserList] = useState([]);
-  const [InstitutionDetails, setInstitutionDetails] = useState({});
+  const [apicall, setapicall] = useState(false);
 
   const GetUserListFuntion = async () => {
-    const response = await GetAllUserList();
-
+    const response = await GetAllUserList(head);
     setGetUserList(response.users || []);
-
-    if (getUserlist) {
-      setInstitutionDetails(response.users.institution_id);
-    } else {
-      setInstitutionDetails({});
-    }
+    setapicall(false);
   };
 
   useEffect(() => {
     GetUserListFuntion();
-  }, []);
+  }, [apicall]);
+  // console.log("apicalll----" + apicall);
+  useEffect(
+    React.useCallback(() => {
+      const unsubscribe = navigate.addListener("focus", () => {
+        console.log("Focus event triggered");
+        GetUserListFuntion();
+      });
+
+      return unsubscribe;
+    }, [navigate, apicall])
+  );
+  // console.log("apicalll----" + apicall);
+  // useLayoutEffect(() => {
+  //   const unsubscribe = navigate.addListener("focus", () => {
+  //     console.log("Focus event triggered");
+
+  //     GetUserListFuntion();
+  //   });
+
+  //   return unsubscribe;
+  // }, [navigate, apicall]);
+
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text variant="headlineSmall">User List</Text>
-        {/* <Button
-          mode="contained"
-          variant="small"
-          textColor="white"
-          onPress={() => console.log("Pressed")}
-        >
-          + Add user
-        </Button> */}
-        <Button mode="contained" onPress={() => console.log("Pressed")}>
-          + Add user
-        </Button>
+    <PaperProvider>
+      {" "}
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text variant="headlineSmall">User List</Text>
+
+          <Button
+            mode="contained"
+            onPress={() =>
+              navigate.navigate("adduserform", { IntialFormState })
+            }
+          >
+            + Add user
+          </Button>
+        </View>
+        <Searchbar
+          placeholder="Search"
+          size="small"
+          style={{ height: "40px", marginBottom: 10 }}
+          // onChangeText={onChangeSearch}
+          // value={searchQuery}
+          // style={{ height: "30px" }}
+          inputStyle={{ minHeight: "40px" }}
+        />
+        <ScrollView vertical={true}>
+          {(getUserlist || []).map((item) => {
+            return (
+              <>
+                <UserBox item={item} setapicall={setapicall} />
+              </>
+            );
+          })}
+        </ScrollView>
       </View>
-      <Searchbar
-        placeholder="Search"
-        size="small"
-        style={{ height: "40px", marginBottom: 10 }}
-        // onChangeText={onChangeSearch}
-        // value={searchQuery}
-        // style={{ height: "30px" }}
-        inputStyle={{ minHeight: "40px" }}
-      />
-      <ScrollView vertical={true}>
-        {(getUserlist || []).map((item) => {
-          return (
-            <Flex key={item.id} flexDirection="row" style={styles.Card}>
-              <View>
-                <Avatar.Image
-                  size={40}
-                  source={require("../components/comman/images.png")}
-                />
-              </View>
-              <Box>
-                <Text variant="titleMedium">{item.name}</Text>
-                <Text variant="bodySmall">{item.email} </Text>
-                <Text variant="bodySmall">{item.phone}</Text>
-              </Box>
-              <View
-                style={{
-                  position: "absolute",
-                  right: 0,
-                  top: 0,
-                  height: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  backgroundColor: "#fff",
-                }}
-              >
-                <Button>Update</Button>
-                <Button>Delete</Button>
-              </View>
-            </Flex>
-          );
-        })}
-      </ScrollView>
-    </View>
+    </PaperProvider>
   );
 };
 
@@ -99,21 +116,5 @@ const styles = StyleSheet.create({
     width: "100%",
     marginBottom: 10,
     justifyContent: "space-between",
-  },
-  Card: {
-    backgroundColor: "#fff",
-    borderWidth: 1,
-    borderRadius: 5,
-    backgroundColor: "white",
-    padding: 10,
-    marginBottom: 5,
-    overflow: "hidden",
-    display: "flex",
-    flexDirection: "row",
-    gap: 8,
-    borderColor: "#ccc",
-    justifyContent: "start",
-    alignItems: "center",
-    position: "relative",
   },
 });

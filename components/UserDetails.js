@@ -12,10 +12,18 @@ import {
   Avatar,
 } from "react-native-paper";
 
-import { deleteUser, GetUserListApi, UpdateUserApi } from "./Api/api";
+import { deleteUser, GetUserDetailsApi, UpdateUserApi } from "./Api/api";
 import useValidation from "./comman/UseValidaion";
 // import Toast from "react-native-toast-message"; //
 export const UserDetails = () => {
+  let Token = localStorage.getItem("token");
+  var head = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${Token}`,
+    },
+  };
+
   const [userDetails, setUserDetails] = useState({});
 
   const [apicall, setapicall] = useState(false);
@@ -106,7 +114,7 @@ export const UserDetails = () => {
 
   const UserList = async () => {
     try {
-      let response = await GetUserListApi();
+      let response = await GetUserDetailsApi(head);
       setState(response.user);
       setUserDetails(response.user);
       setapicall(false);
@@ -121,14 +129,14 @@ export const UserDetails = () => {
 
   const onUpdateClick = async () => {
     if (validate()) {
-      const response = await UpdateUserApi(state);
-
+      const response = await UpdateUserApi(state, head);
+      console.log(response.message);
       if (response.message === "User updated.") {
-        Toast.show({
-          text1: "User Updated Successfully",
-          position: "bottom",
-          type: "success",
-        });
+        // Toast.show({
+        //   text1: "User Updated Successfully",
+        //   position: "bottom",
+        //   type: "success",
+        // });
         setUpdateAlert(true);
         hideModal();
       }

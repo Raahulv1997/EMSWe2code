@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { PaperProvider, Text } from "react-native-paper";
-import { GetAllUserList, GetLeaveListByAdmin } from "./Api/api";
+import { GetLeaveListByAdmin } from "./Api/api";
 import LeaveBox from "./comman/leaveBox";
 
 export const Leaves = () => {
+  let Token = localStorage.getItem("token");
+  var head = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${Token}`,
+    },
+  };
+
   const [LeaveList, setLeaveList] = useState([]);
   const [apicall, setapicall] = useState(false);
   const GetLeaveListFuntion = async () => {

@@ -17,7 +17,7 @@ const AttendenceStatus = ({ setApiCall }) => {
           position: "top", // top, center, or bottom
           text1: "Attendence Marked successfully",
 
-          visibilityTime: 3000, // Duration in milliseconds
+          visibilityTime: 1000, // Duration in milliseconds
           autoHide: true,
           topOffset: 30, // Adjust the distance from the top
         });

@@ -13,7 +13,7 @@ export const GetProjectsApi = async (head) => {
 };
 /*Function to add project */
 export const AddProjectApi = async (data, head) => {
-  console.log(data);
+  // console.log(data);
   const response = await axios.post(`${API_URL}project/create`, data, head);
   return response.data;
 };
@@ -33,13 +33,13 @@ export const DeleteProjectByAdmin = async (id) => {
   return response.data;
 };
 export const UpdateProjectApi = async (data, head) => {
-  console.log(data);
+  // console.log(data);
   const response = await axios.put(`${API_URL}project/update`, data, head);
   return response.data;
 };
 /*Api to get task */
 export const GetTaskApi = async (id, head) => {
-  console.log(id);
+  // console.log(id);
   const response = await axios.post(
     `${API_URL}task/getTasks`,
 
@@ -73,7 +73,7 @@ export const UpdateTaskApi = async (data) => {
 };
 /*Function to Update Task */
 export const DeleteTaskApi = async (id) => {
-  console.log(id);
+  // console.log(id);
   const response = await axios.post(
     `${API_URL}task/delete/${id}`,
     { id: id },
@@ -89,7 +89,7 @@ export const DeleteTaskApi = async (id) => {
 
 /*Api to get attendance of user  */
 export const GeUserAttendance = async (id) => {
-  console.log(id);
+  // console.log(id);
   const response = await axios.post(
     `${API_URL}attendance`,
     { user_id: id },
@@ -213,8 +213,8 @@ export const LeaveStatusUpdateByAdmin = async (id, status) => {
 
 export const GetHolidayListByAdmin = async () => {
   var Token = localStorage.getItem("token");
-  // console.log("yrtgfhgfghfghfghfghfyh");
-  // console.log(Token);
+  // // console.log("yrtgfhgfghfghfghfghfyh");
+  // // console.log(Token);
   const response = await axios.get(
     `${API_URL}admin/holiday`,
 

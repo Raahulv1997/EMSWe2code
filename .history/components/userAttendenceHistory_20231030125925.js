@@ -25,7 +25,7 @@ const UserAttendenceHistory = () => {
   const GetUserhistory = async () => {
     try {
       let res = await GeUserAttendance(userId);
-      // console.log(res);
+      console.log(res);
       setCount(res.count);
       setAttendanceList(res.attendance.data);
     } catch (err) {
@@ -34,9 +34,7 @@ const UserAttendenceHistory = () => {
   };
   useEffect(() => {
     GetUserhistory();
-    if (apiCall === true) {
-      setApiCall(false);
-    }
+    setApiCall(false);
   }, [apiCall]);
   return (
     <Flex style={styles.scrollcontainer}>
@@ -92,7 +90,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     justifyContent: "space-between",
     gap: "10px",
-    height: "calc(100vh - 100px)",
+    // height: "calc(100vh - 300px)",
     padding: "10px",
     flexWrap: "wrap",
     overflow: "scroll",

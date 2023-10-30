@@ -84,10 +84,10 @@ const AddProjectForm = () => {
   /*Function to add peoject */
 
   useEffect(() => {
-    if (projectData.id !== null) {
+    if (projectData.id !== undefined) {
       setState(projectData);
     } else {
-      setState({});
+      setState(initialFormState);
     }
   }, []);
   const handleAddProject = async () => {

@@ -86,7 +86,9 @@ export default function ProjectBox({ projectData, setapicall, apicall }) {
                 <TouchableOpacity
                   onPress={() => {
                     setTaskId(projectData.id);
-                    navigate.navigate("addtask", { taskId });
+                    navigate.navigate("addtask", {
+                      taskId,
+                    });
                   }}
                 >
                   <Entypo name="add-to-list" size={20} color="grey" />

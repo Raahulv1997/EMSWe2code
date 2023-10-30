@@ -74,10 +74,12 @@ export const AddTask = () => {
 
   const { state, onInputChange, setState, setErrors, errors, validate } =
     useValidation(IntialFormState, validators);
-
+  console.log("----------" + TaskData.id);
   useEffect(() => {
-    if (TaskData.id !== null) {
+    if (TaskData.id !== undefined) {
       setState(TaskData);
+    } else {
+      setState(IntialFormState);
     }
   }, []);
   const GetUserListFuntion = async () => {
